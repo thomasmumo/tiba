@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -45,7 +46,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(requests -> requests
 
 
-                .requestMatchers("/patients/create-patient","/hospitals/create-hospital","/patients/login","/users/create-user","/users/user-login").permitAll()//excludes mentioned paths from the security filter check
+                .requestMatchers("/patients/create-patient","/hospitals/create-hospital","/patients/login","/users/create-user","/users/user-login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/**").authenticated() //excludes mentioned paths from the security filter check
 
                 .anyRequest().authenticated()
 
