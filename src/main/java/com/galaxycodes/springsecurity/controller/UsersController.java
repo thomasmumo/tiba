@@ -59,7 +59,7 @@ public class UsersController {
 
         return usersService.createUser(dto);
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/users/user-login")
     public ResponseEntity<String> login(@RequestBody Users user) {
         return usersService.login(user);
