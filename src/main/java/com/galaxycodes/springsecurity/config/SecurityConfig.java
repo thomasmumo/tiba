@@ -2,9 +2,11 @@ package com.galaxycodes.springsecurity.config;
 
 
 import com.galaxycodes.springsecurity.service.MyUserDetailsService;
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -19,6 +21,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -31,6 +38,7 @@ public class SecurityConfig {
 
     @Bean // this disables the default spring security filter chain and tells spring you want to implement your own.
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
         http.csrf(customizer -> customizer.disable()); //disabling cross-site refference forgery
         http.authorizeHttpRequests(requests -> requests
 
@@ -54,6 +62,18 @@ public class SecurityConfig {
         provider.setUserDetailsService(userDetailsService);
         return provider;
 
+    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(List.of("*")); // ✅ Allow all origins (change for production)
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config); // ✅ Apply CORS settings to all endpoints
+        return (CorsConfigurationSource) source;
     }
 
     //JWT
