@@ -109,6 +109,7 @@ public class UsersService {
 
                         Map<String, String> response = new HashMap<>();
                         response.put("token", jwtService.generateToken(user.getUserName()));
+                        response.put("from","users");
                         return ResponseEntity.ok(response);
                     }
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Your account is deactivated. Please contact your system administrator.");
