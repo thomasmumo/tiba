@@ -26,7 +26,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -91,7 +93,7 @@ public class UsersService {
             return usersRepo.findAll();
         }
 
-        public ResponseEntity<String> login(Users user) {
+        public ResponseEntity<?> login(Users user) {
             try {
                 Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword()));
 
@@ -104,7 +106,10 @@ public class UsersService {
                         staffRecord.setHospital(staff.getHospitalInUsers());
                         staffRecord.setLoggedInTime(LocalTime.now());
                         staffManagementRepo.save(staffRecord);
-                        return ResponseEntity.ok("Token: "+jwtService.generateToken(user.getUserName()));
+
+                        Map<String, String> response = new HashMap<>();
+                        response.put("token", jwtService.generateToken(user.getUserName()));
+                        return ResponseEntity.ok(response);
                     }
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Your account is deactivated. Please contact your system administrator.");
 
