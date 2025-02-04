@@ -20,7 +20,7 @@ public class Users {
     @Column(unique=true)
     private String userName;
     private String password;
-    private boolean isActive=false;
+    private boolean isActive=true;
     private String role;
     private Integer phoneNumber;
     @Lob
