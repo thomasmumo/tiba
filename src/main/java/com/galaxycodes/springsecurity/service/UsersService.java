@@ -95,7 +95,7 @@ public class UsersService {
 
         public ResponseEntity<?> login(Users user) {
             Users userr = usersRepo.findByUserName(user.getUserName());
-            if (userr == null) {return  new ResponseEntity<>("user not found", HttpStatus.NOT_FOUND);}
+            if (userr == null) {return  new ResponseEntity<>("user not found", HttpStatus.OK);}
 
             try {
                 Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword()));
