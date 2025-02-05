@@ -94,6 +94,9 @@ public class UsersService {
         }
 
         public ResponseEntity<?> login(Users user) {
+            Users userr = usersRepo.findByUserName(user.getUserName());
+            if (userr == null) {return  new ResponseEntity<>("user not found", HttpStatus.NOT_FOUND);}
+
             try {
                 Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword()));
 
@@ -116,7 +119,7 @@ public class UsersService {
 
                 }
             }catch (AuthenticationException exception){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Email or password");}
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Email or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
 
         }
 
