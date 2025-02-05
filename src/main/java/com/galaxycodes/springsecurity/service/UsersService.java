@@ -147,7 +147,7 @@ public class UsersService {
             if(user == null) {
                 return new ResponseEntity<>("user not found", HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(user, HttpStatus.FOUND);
+            return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     public ResponseEntity<?> getUsersByHospitalId(Integer hospitalId) {
