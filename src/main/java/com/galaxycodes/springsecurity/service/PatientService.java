@@ -99,6 +99,8 @@ public class PatientService {
 
     }
     public ResponseEntity<String> patientLogin(Patients patient) {
+        Patients p = patientRepo.findByUserName(patient.getUserName());
+        if (p == null) {return new ResponseEntity<>("patient not found", HttpStatus.NOT_FOUND);}
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(patient.getUserName(),patient.getPassword()));
 
