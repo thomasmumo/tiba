@@ -1,6 +1,7 @@
 package com.galaxycodes.springsecurity.controller;
 
 import com.galaxycodes.springsecurity.DTOs.HospitalDTO;
+import com.galaxycodes.springsecurity.DTOs.HospitalResponseDTO;
 import com.galaxycodes.springsecurity.model.Hospitals;
 import com.galaxycodes.springsecurity.service.HospitalsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class HospitalsController {
     }
 
     @GetMapping("/hospitals/all-hospitals")
-    public List<HospitalDTO> getAllHospitals() {
+    public List<HospitalResponseDTO> getAllHospitals() {
 
         return hospitalsService.getAllHospitals();
     }

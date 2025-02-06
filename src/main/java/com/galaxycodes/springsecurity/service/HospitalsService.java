@@ -1,6 +1,7 @@
 package com.galaxycodes.springsecurity.service;
 
 import com.galaxycodes.springsecurity.DTOs.HospitalDTO;
+import com.galaxycodes.springsecurity.DTOs.HospitalResponseDTO;
 import com.galaxycodes.springsecurity.model.Hospitals;
 import com.galaxycodes.springsecurity.repo.HospitalsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,14 @@ public class HospitalsService {
         return hospital;
     }
 
-    public List<HospitalDTO> getAllHospitals() {
+    public List<HospitalResponseDTO> getAllHospitals() {
         return hospitalsRepo.findAll()
                 .stream()
-                .map(this::toHospitalDTO)
+                .map(this::toHospitalResponseDTO)
                 .collect(Collectors.toList());
     }
 
-    private HospitalDTO toHospitalDTO(Hospitals hospital) {
-        return new HospitalDTO(hospital.getHospitalName(), hospital.getLocation());
+    private HospitalResponseDTO toHospitalResponseDTO(Hospitals hospital) {
+        return new HospitalResponseDTO(hospital.getId(),hospital.getHospitalName(), hospital.getLocation());
     }
 }
