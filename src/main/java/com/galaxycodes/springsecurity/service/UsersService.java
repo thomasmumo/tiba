@@ -209,7 +209,7 @@ public class UsersService {
     public ResponseEntity<?> changePassword(String username, ChangePasswordDTO dto) {
         var user = usersRepo.findByUserName(username);
         if (!Objects.equals(user.getPassword(), encoder.encode(dto.currentPassword()))){
-            return new ResponseEntity<>("Password does not match" +user.getPassword()+encoder.encode(dto.currentPassword()), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Password does not match= " +user.getPassword()+"____"+encoder.encode(dto.currentPassword()), HttpStatus.UNAUTHORIZED);
         }
         user.setPassword(encoder.encode(dto.newPassword()));
         usersRepo.save(user);
