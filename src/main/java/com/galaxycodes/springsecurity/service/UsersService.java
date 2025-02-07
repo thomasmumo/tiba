@@ -1,5 +1,6 @@
 package com.galaxycodes.springsecurity.service;
 
+import com.galaxycodes.springsecurity.DTOs.ChangePasswordDTO;
 import com.galaxycodes.springsecurity.DTOs.UpdateUserDTO;
 import com.galaxycodes.springsecurity.DTOs.UsersDTO;
 import com.galaxycodes.springsecurity.model.Hospitals;
@@ -29,6 +30,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -176,10 +178,19 @@ public class UsersService {
         user.setLastName(dto.lastName());
         user.setEmail(dto.email());
         user.setPhoneNumber(dto.phoneNumber());
-        user.setRole(dto.role());
-        user.setPassword(encoder.encode(dto.password()));
+
+
         usersRepo.save(user);
         return ResponseEntity.ok("User updated successfully");
+    }
+    public ResponseEntity<?> changePassword(String username, ChangePasswordDTO dto) {
+        var user = usersRepo.findByUserName(username);
+        if (!Objects.equals(user.getPassword(), encoder.encode(dto.currentPassword()))){
+            return new ResponseEntity<>("Password does not match", HttpStatus.UNAUTHORIZED);
+        }
+        user.setPassword(encoder.encode(dto.newPassword()));
+        usersRepo.save(user);
+        return ResponseEntity.ok("Password updated successfully");
     }
 
 

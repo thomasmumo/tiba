@@ -1,5 +1,6 @@
 package com.galaxycodes.springsecurity.controller;
 
+import com.galaxycodes.springsecurity.DTOs.ChangePasswordDTO;
 import com.galaxycodes.springsecurity.DTOs.UpdateUserDTO;
 import com.galaxycodes.springsecurity.DTOs.UsersDTO;
 import com.galaxycodes.springsecurity.model.Users;
@@ -52,6 +53,10 @@ public class UsersController {
     @PutMapping("/users/{user-name}/update-user-details")
     public ResponseEntity<?> updateUserDetails( @PathVariable("user-name") String username,@Valid @RequestBody UpdateUserDTO dto){
         return  usersService.updateUserDetails(username,dto);
+    }
+    @PutMapping("/users/{user-name}/change-password")
+    public ResponseEntity<?> changePassword( @PathVariable("user-name") String username,@Valid @RequestBody ChangePasswordDTO dto){
+        return  usersService.changePassword(username,dto);
     }
 
     @PostMapping("/users/create-user")
