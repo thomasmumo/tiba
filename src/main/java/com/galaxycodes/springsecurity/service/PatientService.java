@@ -24,7 +24,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PatientService {
@@ -95,17 +97,26 @@ public class PatientService {
         user.setProfileImageData(ImagesUtil.compressImage(file.getBytes()));
 
         patientRepo.save(user);
-        return ResponseEntity.ok("profile picture updated");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "profile picture updated");
+
+        return ResponseEntity.ok(response);
+
 
     }
-    public ResponseEntity<String> patientLogin(Patients patient) {
+    public ResponseEntity<?> patientLogin(Patients patient) {
         Patients p = patientRepo.findByUserName(patient.getUserName());
         if (p == null) {return new ResponseEntity<>("patient not found", HttpStatus.NOT_FOUND);}
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(patient.getUserName(),patient.getPassword()));
 
             if (authentication.isAuthenticated()) {
-                return ResponseEntity.ok("Patient "+patient.getUserName()+"Token: "+jwtService.generateToken(patient.getUserName()));
+                Map<String, String> response = new HashMap<>();
+                response.put("patient", patient.getUserName());
+                response.put("Token", jwtService.generateToken(patient.getUserName()));
+
+                return ResponseEntity.ok(response);
+//                return ResponseEntity.ok("Patient "+patient.getUserName()+"Token: "+jwtService.generateToken(patient.getUserName()));
 
             }
         }catch (AuthenticationException exception){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Email or password");}
@@ -124,13 +135,25 @@ public class PatientService {
         patient.setUserName(dto.userName());
         patientRepo.save(patient);
 
-        return new ResponseEntity<>("patient updated", HttpStatus.OK);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "patient updated successfully");
+
+
+        return ResponseEntity.ok(response);
+
+
 
     }
 
     public ResponseEntity<?> deletePatient(String username) {
         var user = patientRepo.findByUserName(username);
         patientRepo.delete(user);
-        return new ResponseEntity<>("patient deleted", HttpStatus.OK);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "patient deleted");
+
+
+        return ResponseEntity.ok(response);
+
     }
 }

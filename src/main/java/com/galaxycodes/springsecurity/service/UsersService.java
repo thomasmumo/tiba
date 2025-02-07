@@ -125,17 +125,26 @@ public class UsersService {
 
         }
 
-        public ResponseEntity<String> deactivateUser(String username){
+        public ResponseEntity<?> deactivateUser(String username){
             Users user = usersRepo.findByUserName(username);
             user.setActive(false);
             usersRepo.save(user);
-            return ResponseEntity.ok("account deactivated");
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "account deactivated");
+
+            return ResponseEntity.ok(response);
+
         }
-        public ResponseEntity<String> activateUser(String username){
+        public ResponseEntity<?> activateUser(String username){
             Users user = usersRepo.findByUserName(username);
             user.setActive(true);
             usersRepo.save(user);
-            return ResponseEntity.ok("account activated");
+
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "account activated");
+
+            return ResponseEntity.ok(response);
+
         }
 
     @Transactional
@@ -143,7 +152,12 @@ public class UsersService {
             Users user = usersRepo.findByUserName(username);
             user.setProfileImageData(ImagesUtil.compressImage(file.getBytes()));
             usersRepo.save(user);
-            return ResponseEntity.ok("profile picture updated");
+
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "profile picture updated");
+
+            return ResponseEntity.ok(response);
+
 
     }
 
@@ -169,7 +183,12 @@ public class UsersService {
                 return new ResponseEntity<>("user not found", HttpStatus.NOT_FOUND);
             }
             usersRepo.delete(user);
-            return ResponseEntity.ok("User deleted successfully");
+
+
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "user deleted");
+
+            return ResponseEntity.ok(response);
     }
 
     public ResponseEntity<?> updateUserDetails(String username,UpdateUserDTO dto) {
@@ -181,7 +200,11 @@ public class UsersService {
 
 
         usersRepo.save(user);
-        return ResponseEntity.ok("User updated successfully");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User updated successfully");
+
+        return ResponseEntity.ok(response);
+
     }
     public ResponseEntity<?> changePassword(String username, ChangePasswordDTO dto) {
         var user = usersRepo.findByUserName(username);
@@ -190,11 +213,16 @@ public class UsersService {
         }
         user.setPassword(encoder.encode(dto.newPassword()));
         usersRepo.save(user);
-        return ResponseEntity.ok("Password updated successfully");
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "password updated successfully");
+
+        return ResponseEntity.ok(response);
+
     }
 
 
-    public ResponseEntity<String> logout(Integer staffId) {
+    public ResponseEntity<?> logout(Integer staffId) {
             var staffRecord = staffManagementRepo.findAllByDate(LocalDate.now())
                     .stream()
                     .filter(record -> record.getLoggedOutTime()==null && record.getUserInStaffManagement().getId().equals(staffId))
@@ -212,6 +240,11 @@ public class UsersService {
                             ( (float)minsNow - (float)staffRecord.getLoggedInTime().getMinute()))/60
             );
             staffManagementRepo.save(staffRecord);
-            return ResponseEntity.ok("logged out successfully");
+
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "logged out successfully");
+
+            return ResponseEntity.ok(response);
+
     }
 }

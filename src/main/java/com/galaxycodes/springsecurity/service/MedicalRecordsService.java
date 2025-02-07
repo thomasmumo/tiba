@@ -27,7 +27,7 @@ public class MedicalRecordsService {
     @Autowired
     private LabImagesRepo imagesRepo;
 
-    private final String FOLDER_PATH = "C:\\Users\\User\\Desktop\\LAB\\";
+
 
 
 
@@ -44,7 +44,12 @@ public class MedicalRecordsService {
         medicalRecord.setHospital(hospital);
         medicalRecordsRepo.save(medicalRecord);
 
-        return new ResponseEntity<>("New medical record created successfully", HttpStatus.CREATED);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "New medical record created successfully");
+
+        return ResponseEntity.ok(response);
+
+
     }
 
     public ResponseEntity<?> assignDoctor(Integer doctorID, Integer patientID) {
@@ -59,7 +64,12 @@ public class MedicalRecordsService {
         medicalRecord.setUser(doctor);
         medicalRecordsRepo.save(medicalRecord);
 
-        return new ResponseEntity<>("Doctor assigned successfully", HttpStatus.CREATED);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Doctor assigned successfully");
+
+        return ResponseEntity.ok(response);
+
+
 
     }
 
@@ -81,7 +91,12 @@ public class MedicalRecordsService {
         medicalRecord.setLabTest(testList);
         medicalRecord.setLabComments(testsResults);
         medicalRecordsRepo.save(medicalRecord);
-        return new ResponseEntity<>("Lab tech assigned successfully", HttpStatus.CREATED);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Lab tech assigned successfully");
+
+        return ResponseEntity.ok(response);
+
     }
     public ResponseEntity<?> assignImagingTech(Integer imagingTechID, Integer patientID, String imageTests) {
         List<String> imageTestList = Arrays.stream(imageTests.split(","))
@@ -113,7 +128,12 @@ public class MedicalRecordsService {
         medicalRecord.setImagingTests(imageTestList);
 
         medicalRecordsRepo.save(medicalRecord);
-        return new ResponseEntity<>("Imaging tech assigned successfully", HttpStatus.CREATED);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Imaging tech assigned successfully");
+
+        return ResponseEntity.ok(response);
+
     }
 
 
@@ -129,7 +149,13 @@ public class MedicalRecordsService {
                 .filter(rec -> rec.getMedicalRecordStatus().equals("Open") && rec.getLabTechId().equals(labTechID))
                 .collect(Collectors.toList()).get(0);
 
-        if(record == null){return new ResponseEntity<>("Medical record already closed",HttpStatus.OK);}
+        if(record == null){
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Medical record already closed");
+
+            return ResponseEntity.ok(response);
+
+        }
 
 
         int idCounter = 0;
@@ -142,7 +168,12 @@ public class MedicalRecordsService {
         }
         record.setLabComments(testResultsList);
         medicalRecordsRepo.save(record);
-        return new ResponseEntity<>("Lab results saved successfully", HttpStatus.CREATED);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Lab results saved successfully");
+
+        return ResponseEntity.ok(response);
+
 
 
     }
@@ -157,7 +188,12 @@ public class MedicalRecordsService {
 
         record.setImage(ImagesUtil.compressImage(file.getBytes()));
         imagesRepo.save(record);
-        return new ResponseEntity<>("Imaging results saved successfully", HttpStatus.CREATED);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Imaging results saved successfully");
+
+        return ResponseEntity.ok(response);
+
 
 
 
@@ -192,6 +228,11 @@ public class MedicalRecordsService {
         record.setCondition(dto.condition());
         record.setMedicalRecordStatus("Closed");
         medicalRecordsRepo.save(record);
-        return new ResponseEntity<>("Prescription saved successfully", HttpStatus.CREATED);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Prescription saved successfully");
+
+        return ResponseEntity.ok(response);
+
     }
 }

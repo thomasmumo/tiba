@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,8 +41,12 @@ public class AppointmentsService {
         }
 
         appointmentsRepo.save(appointment);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Appointment created successfully");
 
-        return new ResponseEntity<>("Appointment created successfully", HttpStatus.CREATED);
+        return ResponseEntity.ok(response);
+
+
 
     }
 
@@ -107,7 +113,11 @@ public class AppointmentsService {
 
 
         appointmentsRepo.save(appointment);
-        return new ResponseEntity<>("Appointment booked successfully", HttpStatus.CREATED);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Appointment booked successfully");
+
+        return ResponseEntity.ok(response);
+
     }
 
     private Appointments toAppointmentByPatient(Integer patientId, AppointmentsDTO dto) {
@@ -140,7 +150,11 @@ public class AppointmentsService {
 
     public ResponseEntity<?> deleteAllAppointments() {
         appointmentsRepo.deleteAll();
-        return new ResponseEntity<>("Appointments deleted successfully", HttpStatus.OK);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Appointments deleted successfully");
+
+        return ResponseEntity.ok(response);
+
     }
 
     public ResponseEntity<?> acceptAppointment(Integer patientId) {
@@ -150,6 +164,11 @@ public class AppointmentsService {
         var appointment = appointments.get(0);
         appointment.setAppointmentStatus("Active");
         appointmentsRepo.save(appointment);
-        return new ResponseEntity<>("Appointment accepted", HttpStatus.OK);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Appointment accepted");
+
+        return ResponseEntity.ok(response);
+
     }
 }

@@ -28,7 +28,7 @@ public class PatientsController {
     }
 
     @PostMapping("/patients/login")
-    public ResponseEntity<String> login(@RequestBody Patients patient) {
+    public ResponseEntity<?> login(@RequestBody Patients patient) {
         return patientService.patientLogin(patient);
     }
     @PutMapping("/patients/{user-name}/update-patient-details")

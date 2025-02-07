@@ -71,16 +71,16 @@ public class UsersController {
 
     }
     @PostMapping("/users/{staff-id}/logout")
-    public ResponseEntity<String> login(@PathVariable("staff-id" )Integer staffId) {
+    public ResponseEntity<?> login(@PathVariable("staff-id" )Integer staffId) {
         return usersService.logout(staffId);
 
     }
     @PutMapping("/users/{user-name}/deactivate")
-    public ResponseEntity<String> deactivateUser(@PathVariable("user-name") String userName) {
+    public ResponseEntity<?> deactivateUser(@PathVariable("user-name") String userName) {
         return usersService.deactivateUser(userName);
     }
     @PutMapping("/users/{user-name}/activate")
-    public ResponseEntity<String> activateUser(@PathVariable("user-name") String userName) {
+    public ResponseEntity<?> activateUser(@PathVariable("user-name") String userName) {
         return usersService.activateUser(userName);
     }
 

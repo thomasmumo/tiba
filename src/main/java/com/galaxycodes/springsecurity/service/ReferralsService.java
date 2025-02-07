@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,10 +30,18 @@ public class ReferralsService {
                 .filter(ref ->ref.getTo_hospital_id().equals(dto.toHospitalID()))
                 .collect(Collectors.toList());
         if(!patientReferrals.isEmpty()){
-            return new ResponseEntity<>("Patient already referred to "+hospitalsRepo.findById(dto.toHospitalID()).get().getHospitalName(),HttpStatus.CONFLICT);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Patient already referred to "+hospitalsRepo.findById(dto.toHospitalID()).get().getHospitalName());
+
+            return ResponseEntity.ok(response);
+
         }
         referralsRepo.save(referral);
-        return new ResponseEntity<>("patient referred to "+hospitalsRepo.findById(referral.getTo_hospital_id()).get().getHospitalName()+" successfully.", HttpStatus.CREATED);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Patient referred to "+hospitalsRepo.findById(referral.getTo_hospital_id()).get().getHospitalName());
+
+        return ResponseEntity.ok(response);
+
 
     }
 

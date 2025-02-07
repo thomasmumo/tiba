@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,8 +27,12 @@ public class HospitalsService {
         }
         hospitalsRepo.save(hospital);
 
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Hospital created");
 
-        return new  ResponseEntity<>("Hospital created", HttpStatus.CREATED);
+        return ResponseEntity.ok(response);
+
+
     }
 
     private Hospitals toHospital(HospitalDTO dto) {
