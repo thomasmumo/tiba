@@ -58,7 +58,11 @@ public class UsersService {
 
             var user = toUser(dto);
             usersRepo.save(user);
-            return new ResponseEntity<>("User created", HttpStatus.CREATED);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "User created");
+
+            return ResponseEntity.ok(response);
+
         }
 
 
