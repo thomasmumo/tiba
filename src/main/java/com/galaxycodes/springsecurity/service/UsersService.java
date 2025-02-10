@@ -224,7 +224,7 @@ public class UsersService {
         return ResponseEntity.ok(response);
 
     }
-    public ResponseEntity<?> SuperAdminChangePassword(String username, ChangePasswordDTO dto) {
+    public ResponseEntity<?> superAdminChangePassword(String username, ChangePasswordDTO dto) {
         var user = usersRepo.findByUserName(username);
 
         user.setPassword(encoder.encode(dto.newPassword()));
