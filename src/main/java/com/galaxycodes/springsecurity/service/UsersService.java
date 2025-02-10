@@ -224,6 +224,18 @@ public class UsersService {
         return ResponseEntity.ok(response);
 
     }
+    public ResponseEntity<?> SuperAdminChangePassword(String username, ChangePasswordDTO dto) {
+        var user = usersRepo.findByUserName(username);
+
+        user.setPassword(encoder.encode(dto.newPassword()));
+        usersRepo.save(user);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "password updated successfully");
+
+        return ResponseEntity.ok(response);
+
+    }
 
 
     public ResponseEntity<?> logout(Integer staffId) {

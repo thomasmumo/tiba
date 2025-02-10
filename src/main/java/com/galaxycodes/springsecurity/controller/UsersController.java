@@ -58,6 +58,10 @@ public class UsersController {
     public ResponseEntity<?> changePassword( @PathVariable("user-name") String username,@Valid @RequestBody ChangePasswordDTO dto){
         return  usersService.changePassword(username,dto);
     }
+    @PutMapping("/users/{user-name}/Super-admin-change-password")
+    public ResponseEntity<?> SuperAdminChangePassword( @PathVariable("user-name") String username,@Valid @RequestBody ChangePasswordDTO dto){
+        return  usersService.SuperAdminChangePassword(username,dto);
+    }
 
     @PostMapping("/users/create-user")
     public ResponseEntity<?> createUser(@Valid @RequestBody UsersDTO dto) throws IOException {
