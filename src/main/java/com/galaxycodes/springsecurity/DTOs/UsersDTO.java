@@ -18,12 +18,12 @@ public record UsersDTO(
         String userName,
         @Size(min = 8, message = "password must be 8 or more characters")
         String password,
-
+        @NotNull( message = "role is required")
         String role,
         @NotNull( message = "phone number is required")
 
         Integer phoneNumber,
-        @NotNull(message = "Hospital ID is required")
+
         Integer hospitalId,
         @Email(message = "not a valid email")
         String email

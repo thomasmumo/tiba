@@ -54,6 +54,10 @@ public class UsersService {
         public ResponseEntity<?> createUser(UsersDTO dto) throws IOException {
             if(usersRepo.findByUserName(dto.userName()) != null) {
                 return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);
+            } else if (dto.role().toUpperCase().equals("SUPER ADMIN") && usersRepo.findAllByRole("SUPER ADMIN").size() ==1 ) {
+                return new ResponseEntity<>("Super admin already exists", HttpStatus.CONFLICT);
+
+
             }
 
             var user = toUser(dto);
@@ -76,12 +80,14 @@ public class UsersService {
             user.setPassword(encoder.encode(dto.password()));
             user.setPhoneNumber(dto.phoneNumber());
             user.setEmail(dto.email());
-            if(dto.role() != null) {user.setRole(dto.role().toUpperCase());}
+            user.setRole(dto.role().toUpperCase());
 
+            if(dto.hospitalId() != null) {
+                var hospital = new Hospitals();
+                hospital.setId(dto.hospitalId());
+                user.setHospitalInUsers(hospital);
+            }
 
-            var hospital = new Hospitals();
-            hospital.setId(dto.hospitalId());
-            user.setHospitalInUsers(hospital);
             return user;
 
 
