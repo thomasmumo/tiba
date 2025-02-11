@@ -76,8 +76,8 @@ public class UsersService {
             user.setPassword(encoder.encode(dto.password()));
             user.setPhoneNumber(dto.phoneNumber());
             user.setEmail(dto.email());
+            if(dto.role() != null) {user.setRole(dto.role().toUpperCase());}
 
-            user.setRole(dto.role());
 
             var hospital = new Hospitals();
             hospital.setId(dto.hospitalId());

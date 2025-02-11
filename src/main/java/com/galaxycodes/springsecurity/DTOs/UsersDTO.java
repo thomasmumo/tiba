@@ -18,7 +18,7 @@ public record UsersDTO(
         String userName,
         @Size(min = 8, message = "password must be 8 or more characters")
         String password,
-        @NotBlank(message = "role is required")
+
         String role,
         @NotNull( message = "phone number is required")
 
