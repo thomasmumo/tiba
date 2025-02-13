@@ -25,7 +25,7 @@ public class Users {
     private Integer phoneNumber;
     @Lob
     @Basic(fetch = FetchType.EAGER)
-    @Column(columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "BYTEA")
     private byte[] profileImageData;
     private String email;
 
