@@ -24,6 +24,7 @@ public class Users {
     private String role;
     private Integer phoneNumber;
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] profileImageData;
     private String email;
 
