@@ -20,7 +20,7 @@ public record UsersDTO(
         String password,
         @NotNull( message = "role is required")
         String role,
-        @NotNull( message = "phone number is required")
+        @NotNull( message = "phone number required")
 
         Integer phoneNumber,
 
