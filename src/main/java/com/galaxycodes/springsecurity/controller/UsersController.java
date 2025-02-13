@@ -24,7 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-
+@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class UsersController {
 
@@ -68,7 +69,7 @@ public class UsersController {
 
         return usersService.createUser(dto);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @PostMapping("/users/user-login")
     public ResponseEntity<?> login(@RequestBody Users user) {
         return usersService.login(user);
