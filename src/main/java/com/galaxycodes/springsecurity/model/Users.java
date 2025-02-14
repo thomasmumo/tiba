@@ -23,6 +23,7 @@ public class Users {
     private boolean isActive=true;
     private String role;
     private Integer phoneNumber;
+    @JsonIgnore
     @Lob
     private byte[] profileImageData;
     private String email;
