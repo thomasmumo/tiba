@@ -49,6 +49,9 @@ public class UsersService {
         @Autowired
         private StaffManagementRepo staffManagementRepo;
 
+    @Autowired
+    private CloudinaryService cloudinaryService;
+
         private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
         public ResponseEntity<?> createUser(UsersDTO dto) throws IOException {
@@ -92,13 +95,16 @@ public class UsersService {
 
 
         }
-        @Transactional
-        public byte[] downloadProfile(String username) throws IOException {
+
+        public ResponseEntity<?> downloadProfile(String username) throws IOException {
             Users user= usersRepo.findByUserName(username);
 
 
-            byte[] image = user.getProfileImageData();
-            return image;
+            String profileImageURL = user.getProfileURL();
+            Map<String, String> response = new HashMap<>();
+            response.put("profileImageURL", profileImageURL);
+
+            return ResponseEntity.ok(response);
         }
         public List<Users> getUsers(){
 
@@ -159,14 +165,21 @@ public class UsersService {
 
     @Transactional
     public ResponseEntity<?> updateProfile(String username, MultipartFile file) throws IOException {
+
+
+        try {
             Users user = usersRepo.findByUserName(username);
-            user.setProfileImageData(file.getBytes());
+            user.setProfileURL(cloudinaryService.uploadImage(file));
             usersRepo.save(user);
 
             Map<String, String> response = new HashMap<>();
             response.put("message", "profile picture updated");
 
             return ResponseEntity.ok(response);
+
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Image upload failed: " + e.getMessage());
+        }
 
 
     }

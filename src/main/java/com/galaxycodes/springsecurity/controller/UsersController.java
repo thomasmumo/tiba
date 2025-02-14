@@ -91,10 +91,7 @@ public class UsersController {
 
     @GetMapping("/users/{userName}/get-profile-pic")
     public ResponseEntity<?> downloadProfile(@PathVariable(value = "userName") String userName) throws IOException {
-        byte[] imageData = usersService.downloadProfile(userName);
-        return ResponseEntity.ok()
-                .contentType(MediaType.valueOf("image/png"))
-                .body(imageData);
+        return this.usersService.downloadProfile(userName);
     }
 
     @PutMapping("/users/{userName}/update-profile-pic")

@@ -23,9 +23,7 @@ public class Users {
     private boolean isActive=true;
     private String role;
     private Integer phoneNumber;
-
-    @Lob
-    private byte[] profileImageData;
+    private String profileURL;
     private String email;
 
 
@@ -59,7 +57,7 @@ public class Users {
 
 
 
-    public Users(List<LabImages> images,String email, Integer phoneNumber, String firstName, String lastName, byte[] profileImageData, String userName, String password, boolean isActive, String role, List<MedicalRecords> medicalRecords, List<Referrals> referrals, List<StaffManagement> attendance, List<Appointments> appointments, Hospitals hospitalInUsers) {
+    public Users(List<LabImages> images,String email, Integer phoneNumber, String firstName, String lastName, String profileURL, String userName, String password, boolean isActive, String role, List<MedicalRecords> medicalRecords, List<Referrals> referrals, List<StaffManagement> attendance, List<Appointments> appointments, Hospitals hospitalInUsers) {
         this.userName = userName;
         this.password = password;
         this.images = images;
@@ -74,7 +72,7 @@ public class Users {
         this.attendance = attendance;
         this.appointments = appointments;
         this.hospitalInUsers = hospitalInUsers;
-        this.profileImageData = profileImageData;
+        this.profileURL = profileURL;
     }
 
     public List<LabImages> getImages() {
@@ -197,11 +195,11 @@ public class Users {
         this.hospitalInUsers = hospitalInUsers;
     }
 
-    public byte[] getProfileImageData() {
-        return profileImageData;
+    public String getProfileURL() {
+        return profileURL;
     }
 
-    public void setProfileImageData(byte[] profileImageData) {
-        this.profileImageData = profileImageData;
+    public void setProfileURL(String profileURL) {
+        this.profileURL = profileURL;
     }
 }
