@@ -97,7 +97,7 @@ public class UsersService {
             Users user= usersRepo.findByUserName(username);
 
 
-            byte[] image = ImagesUtil.decompressImage(user.getProfileImageData());
+            byte[] image = user.getProfileImageData();
             return image;
         }
         public List<Users> getUsers(){
@@ -160,7 +160,7 @@ public class UsersService {
     @Transactional
     public ResponseEntity<?> updateProfile(String username, MultipartFile file) throws IOException {
             Users user = usersRepo.findByUserName(username);
-            user.setProfileImageData(ImagesUtil.compressImage(file.getBytes()));
+            user.setProfileImageData(file.getBytes());
             usersRepo.save(user);
 
             Map<String, String> response = new HashMap<>();

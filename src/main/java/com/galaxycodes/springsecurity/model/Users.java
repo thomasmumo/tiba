@@ -25,7 +25,6 @@ public class Users {
     private Integer phoneNumber;
 
     @Lob
-
     private byte[] profileImageData;
     private String email;
 
