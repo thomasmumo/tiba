@@ -8,12 +8,12 @@ public class ImagesUtil {
 
     public static byte[] compressImage(byte[] data) {
         Deflater deflater = new Deflater();
-        deflater.setLevel(Deflater.BEST_COMPRESSION);
+        deflater.setLevel(Deflater.DEFAULT_COMPRESSION);
         deflater.setInput(data);
         deflater.finish();
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-        byte[] tmp = new byte[4*1024];
+        byte[] tmp = new byte[4096];
         while (!deflater.finished()) {
             int size = deflater.deflate(tmp);
             outputStream.write(tmp, 0, size);
@@ -29,7 +29,7 @@ public class ImagesUtil {
         Inflater inflater = new Inflater();
         inflater.setInput(data);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-        byte[] tmp = new byte[4*1024];
+        byte[] tmp = new byte[4096];
 
         try {
             while (!inflater.finished()) {
