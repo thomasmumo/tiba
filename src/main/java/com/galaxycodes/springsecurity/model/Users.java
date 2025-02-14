@@ -25,7 +25,7 @@ public class Users {
     private Integer phoneNumber;
 
     @Lob
-    @Column(columnDefinition = "BYTEA")
+
     private byte[] profileImageData;
     private String email;
 
