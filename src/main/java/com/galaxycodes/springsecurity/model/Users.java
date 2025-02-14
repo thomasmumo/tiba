@@ -25,6 +25,9 @@ public class Users {
     private Integer phoneNumber;
 
     @Lob
+    @JsonIgnore  // Prevents JSON serialization errors
+    @Basic(fetch = FetchType.LAZY)  // Prevents errors due to lazy loading
+    @Column(columnDefinition = "BYTEA")  // PostgreSQL LOB type
     private byte[] profileImageData;
     private String email;
 
