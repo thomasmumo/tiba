@@ -24,8 +24,6 @@ public class Users {
     private String role;
     private Integer phoneNumber;
     @Lob
-    @Basic(fetch = FetchType.EAGER)
-    @Column(columnDefinition = "BYTEA")
     private byte[] profileImageData;
     private String email;
 
