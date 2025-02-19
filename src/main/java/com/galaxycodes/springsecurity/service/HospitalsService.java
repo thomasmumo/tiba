@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,8 +54,8 @@ public class HospitalsService {
         return new HospitalResponseDTO(hospital.getId(),hospital.getHospitalName(), hospital.getLocation());
     }
 
-    public ResponseEntity<?> getHospital(String hospitalName) {
-       Hospitals hospital = hospitalsRepo.findByHospitalName(hospitalName);
+    public ResponseEntity<?> getHospital(Integer hospitalID) {
+       Optional<Hospitals> hospital = hospitalsRepo.findById(hospitalID);
        return  new ResponseEntity<>(hospital, HttpStatus.OK);
     }
 }
