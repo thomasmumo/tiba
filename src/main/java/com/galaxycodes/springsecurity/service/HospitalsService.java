@@ -52,4 +52,9 @@ public class HospitalsService {
     private HospitalResponseDTO toHospitalResponseDTO(Hospitals hospital) {
         return new HospitalResponseDTO(hospital.getId(),hospital.getHospitalName(), hospital.getLocation());
     }
+
+    public ResponseEntity<?> getHospital(Integer hospitalID) {
+       Hospitals hospital = hospitalsRepo.findByHospitalId(hospitalID);
+       return  new ResponseEntity<>(hospital, HttpStatus.OK);
+    }
 }

@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HospitalsRepo extends JpaRepository<Hospitals, Integer> {
     Hospitals findByHospitalName(String name);
+    Hospitals findByHospitalId(Integer id);
 }

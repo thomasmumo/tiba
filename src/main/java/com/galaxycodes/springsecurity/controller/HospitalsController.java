@@ -6,10 +6,7 @@ import com.galaxycodes.springsecurity.model.Hospitals;
 import com.galaxycodes.springsecurity.service.HospitalsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +23,10 @@ public class HospitalsController {
     public List<HospitalResponseDTO> getAllHospitals() {
 
         return hospitalsService.getAllHospitals();
+    }
+    @GetMapping("/hospitals/{hospitalID}/get-hospital")
+    public ResponseEntity<?> getHospital(@PathVariable("hospitalID") Integer hospitalID) {
+
+        return hospitalsService.getHospital(hospitalID);
     }
 }
