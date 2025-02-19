@@ -24,9 +24,9 @@ public class HospitalsController {
 
         return hospitalsService.getAllHospitals();
     }
-    @GetMapping("/hospitals/{hospitalID}/get-hospital")
-    public ResponseEntity<?> getHospital(@PathVariable("hospitalID") Integer hospitalID) {
+    @GetMapping("/hospitals/{hospitalName}/get-hospital")
+    public ResponseEntity<?> getHospital(@PathVariable("hospitalName") String hospital_name) {
 
-        return hospitalsService.getHospital(hospitalID);
+        return hospitalsService.getHospital(hospital_name);
     }
 }
