@@ -25,6 +25,7 @@ public class Users {
     private Integer phoneNumber;
     private String profileURL;
     private String email;
+    private boolean loggedIn;
 
 
 
@@ -57,9 +58,10 @@ public class Users {
 
 
 
-    public Users(List<LabImages> images,String email, Integer phoneNumber, String firstName, String lastName, String profileURL, String userName, String password, boolean isActive, String role, List<MedicalRecords> medicalRecords, List<Referrals> referrals, List<StaffManagement> attendance, List<Appointments> appointments, Hospitals hospitalInUsers) {
+    public Users(List<LabImages> images,boolean loggedIn, String email, Integer phoneNumber, String firstName, String lastName, String profileURL, String userName, String password, boolean isActive, String role, List<MedicalRecords> medicalRecords, List<Referrals> referrals, List<StaffManagement> attendance, List<Appointments> appointments, Hospitals hospitalInUsers) {
         this.userName = userName;
         this.password = password;
+        this.loggedIn = loggedIn;
         this.images = images;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -73,6 +75,14 @@ public class Users {
         this.appointments = appointments;
         this.hospitalInUsers = hospitalInUsers;
         this.profileURL = profileURL;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 
     public List<LabImages> getImages() {

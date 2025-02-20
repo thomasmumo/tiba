@@ -27,10 +27,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -122,6 +119,8 @@ public class UsersService {
 
                     if(usersRepo.findByUserName(user.getUserName()).isActive()) {
                         var staff = usersRepo.findByUserName(user.getUserName());
+                        staff.setLoggedIn(true);
+                        usersRepo.save(staff);
                         var staffRecord = new StaffManagement();
                         staffRecord.setUserInStaffManagement(staff);
                         staffRecord.setHospital(staff.getHospitalInUsers());
@@ -232,7 +231,7 @@ public class UsersService {
     public ResponseEntity<?> changePassword(String username, ChangePasswordDTO dto) {
         var user = usersRepo.findByUserName(username);
         if (!encoder.matches(dto.currentPassword(), user.getPassword())){
-            return new ResponseEntity<>("Password does not match= " +user.getPassword()+"____"+encoder.encode(dto.currentPassword()), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Password does not match", HttpStatus.UNAUTHORIZED);
         }
         user.setPassword(encoder.encode(dto.newPassword()));
         usersRepo.save(user);
@@ -258,6 +257,10 @@ public class UsersService {
 
 
     public ResponseEntity<?> logout(Integer staffId) {
+            var staff = usersRepo.findById(staffId);
+            staff.get().setLoggedIn(false);
+            usersRepo.save(staff.get());
+
             var staffRecord = staffManagementRepo.findAllByDate(LocalDate.now())
                     .stream()
                     .filter(record -> record.getLoggedOutTime()==null && record.getUserInStaffManagement().getId().equals(staffId))
