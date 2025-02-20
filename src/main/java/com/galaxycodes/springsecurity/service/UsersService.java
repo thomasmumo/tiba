@@ -6,6 +6,7 @@ import com.galaxycodes.springsecurity.DTOs.UsersDTO;
 import com.galaxycodes.springsecurity.model.Hospitals;
 import com.galaxycodes.springsecurity.model.StaffManagement;
 import com.galaxycodes.springsecurity.model.Users;
+import com.galaxycodes.springsecurity.repo.HospitalsRepo;
 import com.galaxycodes.springsecurity.repo.StaffManagementRepo;
 import com.galaxycodes.springsecurity.repo.UserRepo;
 import com.galaxycodes.springsecurity.utils.ImagesUtil;
@@ -46,16 +47,38 @@ public class UsersService {
         @Autowired
         private StaffManagementRepo staffManagementRepo;
 
+        @Autowired
+        private HospitalsRepo hospitalsRepo;
+
     @Autowired
     private CloudinaryService cloudinaryService;
 
         private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+
+        public String checkAdminExists(Integer hospitalID){
+            Integer adminObjSize=usersRepo.findAllByHospitalInUsers_id(hospitalID)
+                    .stream()
+                    .filter(user -> user.getRole().equals("ADMIN"))
+                    .collect(Collectors.toList()).size();
+            if(adminObjSize>0){
+                return "admin exists";
+            }
+            return null;
+
+
+        }
 
         public ResponseEntity<?> createUser(UsersDTO dto) throws IOException {
             if(usersRepo.findByUserName(dto.userName()) != null) {
                 return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);
             } else if (dto.role().toUpperCase().equals("SUPER ADMIN") && usersRepo.findAllByRole("SUPER ADMIN").size() ==1 ) {
                 return new ResponseEntity<>("Super admin already exists", HttpStatus.CONFLICT);
+
+
+            }else if (dto.role().toUpperCase().equals("ADMIN")  && checkAdminExists(dto.hospitalId()) != null) {
+                var name =hospitalsRepo.findById(dto.hospitalId()).get().getHospitalName();
+
+                return new ResponseEntity<>(name+" admin already exists", HttpStatus.CONFLICT);
 
 
             }
