@@ -1,5 +1,6 @@
 package com.galaxycodes.springsecurity.controller;
 
+import com.galaxycodes.springsecurity.DTOs.AdminResponseDTO;
 import com.galaxycodes.springsecurity.DTOs.ChangePasswordDTO;
 import com.galaxycodes.springsecurity.DTOs.UpdateUserDTO;
 import com.galaxycodes.springsecurity.DTOs.UsersDTO;
@@ -33,7 +34,7 @@ public class UsersController {
     private UsersService usersService;
 
     @GetMapping("/users")
-    public List<Users> getUsers() {
+    public List<AdminResponseDTO> getUsers() {
         return usersService.getUsers();
 
     }

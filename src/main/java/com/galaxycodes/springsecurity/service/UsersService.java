@@ -1,5 +1,6 @@
 package com.galaxycodes.springsecurity.service;
 
+import com.galaxycodes.springsecurity.DTOs.AdminResponseDTO;
 import com.galaxycodes.springsecurity.DTOs.ChangePasswordDTO;
 import com.galaxycodes.springsecurity.DTOs.UpdateUserDTO;
 import com.galaxycodes.springsecurity.DTOs.UsersDTO;
@@ -126,10 +127,27 @@ public class UsersService {
 
             return ResponseEntity.ok(response);
         }
-        public List<Users> getUsers(){
+        public List<AdminResponseDTO> getUsers(){
+            List<Users> users= usersRepo.findAll();
 
-            return usersRepo.findAll();
+            return users.stream()
+                    .map(this::mapToAdminResponseDTO)
+                    .collect(Collectors.toList());
         }
+    private AdminResponseDTO mapToAdminResponseDTO(Users user) {
+
+        return new AdminResponseDTO(
+                user.getFirstName(),
+                user.getLastName(),
+                user.getPhoneNumber(),
+                user.isActive(),
+                user.isLoggedIn(),
+                user.getHospitalInUsers().getHospitalName(),
+                user.getHospitalInUsers().getLocation(),
+                user.getUserName(),
+                user.getProfileURL()
+        );
+    }
 
         public ResponseEntity<?> login(Users user) {
             Users userr = usersRepo.findByUserName(user.getUserName());
