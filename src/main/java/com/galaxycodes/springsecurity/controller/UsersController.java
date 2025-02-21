@@ -34,7 +34,7 @@ public class UsersController {
     private UsersService usersService;
 
     @GetMapping("/users")
-    public List<AdminResponseDTO> getUsers() {
+    public ResponseEntity<?> getUsers() {
         return usersService.getUsers();
 
     }
