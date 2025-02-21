@@ -46,8 +46,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(requests -> requests
 
 
-                .requestMatchers("/patients/create-patient","/hospitals/create-hospital","/patients/login","/users/create-user","/users/user-login","/users").permitAll()
-                .requestMatchers(HttpMethod.GET, "/**").authenticated() //excludes mentioned paths from the security filter check
+                .requestMatchers("/patients/create-patient","/hospitals/create-hospital","/patients/login","/users/create-user","/users/user-login").permitAll()
+                //.requestMatchers(HttpMethod.GET, "/**").authenticated() //excludes mentioned paths from the security filter check
 
                 .anyRequest().authenticated()
 
