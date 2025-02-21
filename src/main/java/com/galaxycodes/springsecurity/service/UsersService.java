@@ -129,14 +129,20 @@ public class UsersService {
         }
         public ResponseEntity<?> getUsers(){
             List<Users> users= usersRepo.findAll();
+            try{
+                List<AdminResponseDTO> res = users.stream()
+                        .map(this::mapToAdminResponseDTO)
+                        .collect(Collectors.toList());
 
-            List<AdminResponseDTO> res = users.stream()
-                    .map(this::mapToAdminResponseDTO)
-                    .collect(Collectors.toList());
 
 
+                return new ResponseEntity<>(res, HttpStatus.OK);
+            }catch (Exception e) {
 
-            return new ResponseEntity<>(res, HttpStatus.OK);
+                return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+
         }
     private AdminResponseDTO mapToAdminResponseDTO(Users user) {
 
