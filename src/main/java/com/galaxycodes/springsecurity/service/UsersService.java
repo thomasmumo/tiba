@@ -145,19 +145,34 @@ public class UsersService {
 
         }
     private AdminResponseDTO mapToAdminResponseDTO(Users user) {
-
+            if (user.getHospitalInUsers() != null) {
+                return new AdminResponseDTO(
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getPhoneNumber(),
+                        user.isActive(),
+                        user.isLoggedIn(),
+                        user.getHospitalInUsers().getHospitalName(),
+                        user.getHospitalInUsers().getLocation(),
+                        user.getUserName(),
+                        user.getProfileURL(),
+                        user.getRole());
+            }
         return new AdminResponseDTO(
                 user.getFirstName(),
                 user.getLastName(),
                 user.getPhoneNumber(),
                 user.isActive(),
                 user.isLoggedIn(),
-                user.getHospitalInUsers().getHospitalName(),
-                user.getHospitalInUsers().getLocation(),
+                "",
+                "",
                 user.getUserName(),
                 user.getProfileURL(),
-                user.getRole()
-        );
+                user.getRole());
+
+
+
+
     }
 
         public ResponseEntity<?> login(Users user) {
