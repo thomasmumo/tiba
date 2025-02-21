@@ -78,7 +78,7 @@ public class UsersService {
             }else if (dto.role().toUpperCase().equals("ADMIN")  && checkAdminExists(dto.hospitalId()) != null) {
                 var name =hospitalsRepo.findById(dto.hospitalId()).get().getHospitalName();
 
-                return new ResponseEntity<>(name+" admin already exists", HttpStatus.CONFLICT);
+                return new ResponseEntity<>(name+" admin exists", HttpStatus.CONFLICT);
 
 
             }
