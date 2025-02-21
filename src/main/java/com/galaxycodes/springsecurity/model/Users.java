@@ -48,7 +48,7 @@ public class Users {
 
     private List<Appointments> appointments;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hospitalInUsers_id")
 
     private Hospitals hospitalInUsers;

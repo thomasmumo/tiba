@@ -128,15 +128,15 @@ public class UsersService {
             return ResponseEntity.ok(response);
         }
         public ResponseEntity<?> getUsers(){
-//            List<Users> users= usersRepo.findAll();
-//
-//            List<AdminResponseDTO> res = users.stream()
-//                    .map(this::mapToAdminResponseDTO)
-//                    .collect(Collectors.toList());
+            List<Users> users= usersRepo.findAll();
+
+            List<AdminResponseDTO> res = users.stream()
+                    .map(this::mapToAdminResponseDTO)
+                    .collect(Collectors.toList());
 
 
 
-            return new ResponseEntity<>(usersRepo.findAll(), HttpStatus.OK);
+            return new ResponseEntity<>(res, HttpStatus.OK);
         }
     private AdminResponseDTO mapToAdminResponseDTO(Users user) {
 
