@@ -145,7 +145,8 @@ public class UsersService {
                 user.getHospitalInUsers().getHospitalName(),
                 user.getHospitalInUsers().getLocation(),
                 user.getUserName(),
-                user.getProfileURL()
+                user.getProfileURL(),
+                user.getRole()
         );
     }
 

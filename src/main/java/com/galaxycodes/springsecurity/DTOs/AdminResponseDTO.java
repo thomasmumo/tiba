@@ -9,7 +9,8 @@ public record AdminResponseDTO(
         String hospitalName,
         String hospitalLocation,
         String username,
-        String profileURL
+        String profileURL,
+        String role
 ) {
 
 }
