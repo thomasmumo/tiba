@@ -26,6 +26,8 @@ public class Users {
     private String profileURL;
     private String email;
     private boolean loggedIn;
+    private boolean dayShift=false;
+    private boolean nightShift=false;
 
 
 
@@ -58,9 +60,11 @@ public class Users {
 
 
 
-    public Users(List<LabImages> images,boolean loggedIn, String email, Integer phoneNumber, String firstName, String lastName, String profileURL, String userName, String password, boolean isActive, String role, List<MedicalRecords> medicalRecords, List<Referrals> referrals, List<StaffManagement> attendance, List<Appointments> appointments, Hospitals hospitalInUsers) {
+    public Users(List<LabImages> images,boolean dayShift, boolean nightShift, boolean loggedIn, String email, Integer phoneNumber, String firstName, String lastName, String profileURL, String userName, String password, boolean isActive, String role, List<MedicalRecords> medicalRecords, List<Referrals> referrals, List<StaffManagement> attendance, List<Appointments> appointments, Hospitals hospitalInUsers) {
         this.userName = userName;
         this.password = password;
+        this.dayShift = dayShift;
+        this.nightShift = nightShift;
         this.loggedIn = loggedIn;
         this.images = images;
         this.email = email;
@@ -79,6 +83,22 @@ public class Users {
 
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    public boolean isDayShift() {
+        return dayShift;
+    }
+
+    public void setDayShift(boolean dayShift) {
+        this.dayShift = dayShift;
+    }
+
+    public boolean isNightShift() {
+        return nightShift;
+    }
+
+    public void setNightShift(boolean nightShift) {
+        this.nightShift = nightShift;
     }
 
     public void setLoggedIn(boolean loggedIn) {
