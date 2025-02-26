@@ -191,6 +191,11 @@ public class UsersService {
                         var staffRecord = new StaffManagement();
                         staffRecord.setUserInStaffManagement(staff);
                         staffRecord.setHospital(staff.getHospitalInUsers());
+                        boolean dayshift = staff.isDayShift();
+                        boolean nightshift = staff.isNightShift();
+                        if (dayshift){
+                            staffRecord.setShift("day");
+                        }else if (nightshift){staffRecord.setShift("night");}
                         staffRecord.setLoggedInTime(LocalTime.now());
                         staffManagementRepo.save(staffRecord);
 

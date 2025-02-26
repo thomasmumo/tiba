@@ -20,6 +20,7 @@ public class StaffManagement {
     private LocalTime loggedInTime;
     private LocalTime loggedOutTime;
     private Float workHours;
+    private String shift;
     @ManyToOne
     @JoinColumn(name = "userInStaffManagement_id")
 
@@ -34,14 +35,22 @@ public class StaffManagement {
     }
 
 
-
-    public StaffManagement(LocalTime loggedInTime, LocalTime loggedOutTime,LocalDate date, Float workHours, Users userInStaffManagement, Hospitals hospital) {
+    public StaffManagement(LocalTime loggedInTime,String shift, LocalTime loggedOutTime, LocalDate date, Float workHours, Users userInStaffManagement, Hospitals hospital) {
         this.date = date;
         this.workHours = workHours;
+        this.shift = shift;
         this.loggedInTime = loggedInTime;
         this.loggedOutTime = loggedOutTime;
         this.userInStaffManagement = userInStaffManagement;
         this.hospital = hospital;
+    }
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
     }
 
     public Integer getId() {
