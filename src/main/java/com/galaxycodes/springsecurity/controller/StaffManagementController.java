@@ -5,9 +5,7 @@ import com.galaxycodes.springsecurity.service.StaffManagementService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class StaffManagementController {
@@ -15,8 +13,10 @@ public class StaffManagementController {
     @Autowired
     private StaffManagementService staffManagementService;
 
-    @PostMapping("/staff-management/create-record")
-    public ResponseEntity<?> createRecord(@Valid @RequestBody StaffManagementDTO dto){
-        return staffManagementService.createRecord(dto);
+
+
+    @GetMapping("/staff-management/hospital-records/{hospital-id}")
+    public ResponseEntity<?> getRecords(@PathVariable("hospital-id") Integer hospitalId){
+        return staffManagementService.getHospitalRecords(hospitalId);
     }
 }
