@@ -100,9 +100,9 @@ public class UsersController {
         return usersService.updateProfile(username,file);
     }
 
-    @PutMapping("/users/user/{userId}/assign-shift/{shift}")
-    public ResponseEntity<?> assignShift(@PathVariable("shift") String shift,@PathVariable("userId") Integer userId) {
-        return usersService.assignShift(shift,userId);
+    @PutMapping("/users/user/{username}/assign-shift/{shift}")
+    public ResponseEntity<?> assignShift(@PathVariable("shift") String shift,@PathVariable("username") String username) {
+        return usersService.assignShift(shift,username);
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException exp) {

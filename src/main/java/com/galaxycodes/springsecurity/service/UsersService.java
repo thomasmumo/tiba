@@ -358,13 +358,13 @@ public class UsersService {
 
     }
 
-    public ResponseEntity<?> assignShift(String shift,Integer userId) {
-            Optional<Users> user = usersRepo.findById(userId);
+    public ResponseEntity<?> assignShift(String shift,String username) {
+          Users user = usersRepo.findByUserName(username);
 
             if (shift.equals("day")){
-                user.get().setDayShift(true);
-                user.get().setNightShift(false);
-                usersRepo.save(user.get());
+                user.setDayShift(true);
+                user.setNightShift(false);
+                usersRepo.save(user);
 
                 Map<String, String> response = new HashMap<>();
                 response.put("message", "Day shift set successfully");
@@ -372,9 +372,9 @@ public class UsersService {
                 return ResponseEntity.ok(response);
 
             }
-        user.get().setNightShift(true);
-        user.get().setDayShift(false);
-        usersRepo.save(user.get());
+        user.setNightShift(true);
+        user.setDayShift(false);
+        usersRepo.save(user);
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "Night shift set successfully");
