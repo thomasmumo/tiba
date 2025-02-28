@@ -56,7 +56,11 @@ public class PatientService {
 
 
         patientRepo.save(patient);
-        return new ResponseEntity<>("patient created", HttpStatus.CREATED);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "patient created");
+
+        return ResponseEntity.ok(response);
     }
 
     private Patients toPatient(PatientsDTO dto) throws IOException {
