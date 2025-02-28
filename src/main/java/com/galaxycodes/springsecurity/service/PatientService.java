@@ -160,4 +160,8 @@ public class PatientService {
         return ResponseEntity.ok(response);
 
     }
+
+    public ResponseEntity<?> getAllPatients() {
+        return new ResponseEntity<>(patientRepo.findAll(), HttpStatus.OK);
+    }
 }

@@ -27,6 +27,11 @@ public class PatientsController {
         return patientService.createPatient(dto);
     }
 
+    @GetMapping("/patients/all-patients")
+    public ResponseEntity<?> getAllPatients() {
+        return patientService.getAllPatients();
+    }
+
     @PostMapping("/patients/login")
     public ResponseEntity<?> login(@RequestBody Patients patient) {
         return patientService.patientLogin(patient);
