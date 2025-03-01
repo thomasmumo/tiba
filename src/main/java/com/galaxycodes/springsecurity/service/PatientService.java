@@ -41,6 +41,9 @@ public class PatientService {
     @Autowired
     private JWTService jwtService;
 
+    @Autowired
+    private HospitalsRepo hospitalRepo;
+
 
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
@@ -166,18 +169,31 @@ public class PatientService {
     }
 
     public ResponseEntity<?> addHospital(String username, Integer hospitalID) {
+        Patients p = patientRepo.findByUserName(username);
 
-            Patients p = patientRepo.findByUserName(username);
-            Hospitals h= new Hospitals();
-            h.setId(hospitalID);
-            p.setHospitals(List.of(h));
-            patientRepo.save(p);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Hospital added");
+        if (p == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found");
+        }
 
+        Hospitals h = hospitalRepo.findById(hospitalID)
+                .orElseThrow(() -> new RuntimeException("Hospital not found"));
 
-            return ResponseEntity.ok(response);
+        // Ensure hospitals list is mutable
+        if (p.getHospitals() == null) {
+            p.setHospitals(new ArrayList<>()); // ✅ Initialize mutable list
+        }
 
+        if (!p.getHospitals().contains(h)) {  // Avoid duplicates
+            p.getHospitals().add(h);
+            hospitalRepo.save(h); // Save hospital to ensure bidirectional mapping
+        }
 
+        patientRepo.save(p); // ✅ Save patient with updated list
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Hospital added");
+
+        return ResponseEntity.ok(response);
     }
+
 }
