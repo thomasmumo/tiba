@@ -1,6 +1,7 @@
 package com.galaxycodes.springsecurity.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -39,6 +40,7 @@ public class Hospitals {
 
     private List<Appointments> appointments;
     @ManyToMany(mappedBy = "hospitals")
+    @JsonIgnore
     private List<Patients> patients;
 
     public Hospitals() {
