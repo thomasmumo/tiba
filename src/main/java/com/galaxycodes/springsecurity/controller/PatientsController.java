@@ -31,10 +31,7 @@ public class PatientsController {
     public ResponseEntity<?> getAllPatients() {
         return patientService.getAllPatients();
     }
-    @PutMapping("/patients/{username}/add-hospital/{hospitalID}")
-    public ResponseEntity<?> addHospital(@PathVariable("username") String username, @PathVariable("hospitalID") Integer hospitalID) {
-        return patientService.addHospital(username,hospitalID);
-    }
+
 
     @PostMapping("/patients/login")
     public ResponseEntity<?> login(@RequestBody Patients patient) {
@@ -44,6 +41,11 @@ public class PatientsController {
     public ResponseEntity<?> updatePatientDetails(@PathVariable("user-name") String username, @RequestBody UpdatePatientDTO dto) {
         return patientService.updatePatientsDetails(username,dto);
     }
+    @PutMapping("/patients/{userName}/add-hospital/{hospitalId}")
+    public ResponseEntity<?> addHospital(@PathVariable("userName") String username, @PathVariable("hospitalId") Integer hospitalID) {
+        return patientService.addHospital(username,hospitalID);
+    }
+
     @DeleteMapping("/patients/{user-name}/delete-patient")
     public ResponseEntity<?> deletePatient(@PathVariable("user-name") String username) {
         return patientService.deletePatient(username);
