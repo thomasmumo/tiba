@@ -164,4 +164,17 @@ public class PatientService {
     public ResponseEntity<?> getAllPatients() {
         return new ResponseEntity<>(patientRepo.findAll(), HttpStatus.OK);
     }
+
+    public ResponseEntity<?> addHospital(String username, Integer hospitalID) {
+        Patients p = patientRepo.findByUserName(username);
+        Hospitals h= new Hospitals();
+        h.setId(hospitalID);
+        p.setHospitals(List.of(h));
+        patientRepo.save(p);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Hospital added");
+
+
+        return ResponseEntity.ok(response);
+    }
 }

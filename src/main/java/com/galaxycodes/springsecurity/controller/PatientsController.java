@@ -31,6 +31,10 @@ public class PatientsController {
     public ResponseEntity<?> getAllPatients() {
         return patientService.getAllPatients();
     }
+    @PutMapping("/patients/{username}/add-hospital/{hospitalID}")
+    public ResponseEntity<?> addHospital(@PathVariable("username") String username, @PathVariable("hospitalID") Integer hospitalID) {
+        return patientService.addHospital(username,hospitalID);
+    }
 
     @PostMapping("/patients/login")
     public ResponseEntity<?> login(@RequestBody Patients patient) {
