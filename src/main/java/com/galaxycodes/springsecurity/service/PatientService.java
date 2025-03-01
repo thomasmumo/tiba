@@ -166,7 +166,7 @@ public class PatientService {
     }
 
     public ResponseEntity<?> addHospital(String username, Integer hospitalID) {
-        try{
+
             Patients p = patientRepo.findByUserName(username);
             Hospitals h= new Hospitals();
             h.setId(hospitalID);
@@ -177,9 +177,7 @@ public class PatientService {
 
 
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
 
     }
 }
