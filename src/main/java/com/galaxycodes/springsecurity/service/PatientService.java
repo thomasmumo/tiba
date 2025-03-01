@@ -1,5 +1,6 @@
 package com.galaxycodes.springsecurity.service;
 
+import com.galaxycodes.springsecurity.DTOs.PatientResponseDTO;
 import com.galaxycodes.springsecurity.DTOs.PatientsDTO;
 import com.galaxycodes.springsecurity.DTOs.UpdatePatientDTO;
 import com.galaxycodes.springsecurity.model.Hospitals;
@@ -167,7 +168,35 @@ public class PatientService {
     }
 
     public ResponseEntity<?> getAllPatients() {
-        return new ResponseEntity<>(patientRepo.findAll(), HttpStatus.OK);
+        List<PatientResponseDTO> patientDTOs = patientRepo.findAll().stream()
+                .map(this::toPatientResponseDTO) // Convert each Patient to DTO
+                .toList();
+
+        return ResponseEntity.ok(patientDTOs);
+    }
+    private PatientResponseDTO toPatientResponseDTO(Patients patient) {
+        return new PatientResponseDTO(
+                patient.getId(),
+                patient.getFirstName() + " " + patient.getLastName(),
+                patient.getUserName(),
+                patient.getEmail(),
+                patient.getSex(),
+                patient.getAllergies(),
+                patient.getWeight(),
+                patient.getHeight(),
+                patient.getBloodPressure(),
+                patient.getBloodType(),
+                patient.getBirthDate(),
+                patient.getAddress(),
+                patient.getInProgress(),
+                patient.getPhone(),
+                patient.getAppointments(),
+                patient.getMedicalRecords(),
+                patient.getReferrals(),
+                patient.getHospitals()  // ✅ Now explicitly including hospitals
+
+
+        );
     }
 
     public ResponseEntity<?> addHospital(String username, Integer hospitalID) {
