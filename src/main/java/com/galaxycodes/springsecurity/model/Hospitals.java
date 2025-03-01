@@ -1,9 +1,6 @@
 package com.galaxycodes.springsecurity.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -41,7 +38,7 @@ public class Hospitals {
 
     private List<Appointments> appointments;
     @ManyToMany(mappedBy = "hospitals")
-    @JsonIgnore
+    @JsonBackReference
     private List<Patients> patients =new ArrayList<>();
 
     public Hospitals() {

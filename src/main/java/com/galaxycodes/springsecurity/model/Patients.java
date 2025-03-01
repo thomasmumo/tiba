@@ -58,7 +58,7 @@ public class Patients {
                     @JoinColumn(name = "hospital_id")
             }
     )
-    @JsonIgnore
+    @JsonManagedReference
     private List<Hospitals> hospitals =new ArrayList<>();
 
     public Patients() {
