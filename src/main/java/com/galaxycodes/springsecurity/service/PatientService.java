@@ -79,9 +79,11 @@ public class PatientService {
 
         if (dto.hospitalId() != null) {
             var hospitals = new Hospitals();
-
             hospitals.setId(dto.hospitalId());
-            patient.setHospitals(List.of(hospitals));
+
+            List<Hospitals> hospitalList = new ArrayList<>();
+            hospitalList.add(hospitals);
+            patient.setHospitals(hospitalList);
         }
 
         return patient;
@@ -180,7 +182,7 @@ public class PatientService {
 
         // Ensure hospitals list is mutable
         if (p.getHospitals() == null) {
-            p.setHospitals(new ArrayList<>()); // ✅ Initialize mutable list
+            p.setHospitals(new ArrayList<>()); //  Initialize mutable list
         }
 
         if (!p.getHospitals().contains(h)) {  // Avoid duplicates
@@ -188,7 +190,7 @@ public class PatientService {
             hospitalRepo.save(h); // Save hospital to ensure bidirectional mapping
         }
 
-        patientRepo.save(p); // ✅ Save patient with updated list
+        patientRepo.save(p); //  Save patient with updated list
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "Hospital added");
