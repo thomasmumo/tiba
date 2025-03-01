@@ -166,15 +166,20 @@ public class PatientService {
     }
 
     public ResponseEntity<?> addHospital(String username, Integer hospitalID) {
-//        Patients p = patientRepo.findByUserName(username);
-//        Hospitals h= new Hospitals();
-//        h.setId(hospitalID);
-//        p.setHospitals(List.of(h));
-//        patientRepo.save(p);
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Hospital added");
+        try{
+            Patients p = patientRepo.findByUserName(username);
+            Hospitals h= new Hospitals();
+            h.setId(hospitalID);
+            p.setHospitals(List.of(h));
+            patientRepo.save(p);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Hospital added");
 
 
-        return ResponseEntity.ok(response);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
