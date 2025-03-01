@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class Patients {
             }
     )
     @JsonIgnore
-    private List<Hospitals> hospitals;
+    private List<Hospitals> hospitals =new ArrayList<>();
 
     public Patients() {
     }

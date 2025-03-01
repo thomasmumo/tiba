@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,7 +42,7 @@ public class Hospitals {
     private List<Appointments> appointments;
     @ManyToMany(mappedBy = "hospitals")
     @JsonIgnore
-    private List<Patients> patients;
+    private List<Patients> patients =new ArrayList<>();
 
     public Hospitals() {
     }
