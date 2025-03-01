@@ -30,6 +30,7 @@ public class Patients {
     @Lob
     private byte[] profileImageData;
     private String address;
+    private Boolean inProgress = false;
     private String firstName;
     private String lastName;
     private String phone;
@@ -62,9 +63,10 @@ public class Patients {
 
 
 
-    public Patients(List<LabImages> images,String phone, List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, Integer weight, Integer height, Integer bloodPressure, String bloodType, Date birthDate, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
+    public Patients(List<LabImages> images, String phone, Boolean inProgress,List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, Integer weight, Integer height, Integer bloodPressure, String bloodType, Date birthDate, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
         this.userName = userName;
         this.password = password;
+        this.inProgress = inProgress;
         this.referrals = referrals;
         this.images = images;
         this.phone = phone;
@@ -83,6 +85,14 @@ public class Patients {
         this.appointments = appointments;
         this.medicalRecords = medicalRecords;
         this.hospitals = hospitals;
+    }
+
+    public Boolean getInProgress() {
+        return inProgress;
+    }
+
+    public void setInProgress(Boolean inProgress) {
+        this.inProgress = inProgress;
     }
 
     public List<LabImages> getImages() {
