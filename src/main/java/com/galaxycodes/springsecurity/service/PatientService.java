@@ -172,7 +172,6 @@ public class PatientService {
 
     public ResponseEntity<?> addHospital(String username, Integer hospitalID) {
         Patients p = patientRepo.findByUserName(username);
-
         if (p == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found");
         }
@@ -180,21 +179,21 @@ public class PatientService {
         Hospitals h = hospitalRepo.findById(hospitalID)
                 .orElseThrow(() -> new RuntimeException("Hospital not found"));
 
-        // Ensure hospitals list is mutable
+        // Ensure hospitals list is initialized
         if (p.getHospitals() == null) {
-            p.setHospitals(new ArrayList<>()); //  Initialize mutable list
+            p.setHospitals(new ArrayList<>());
         }
 
-        if (!p.getHospitals().contains(h)) {  // Avoid duplicates
+        if (!p.getHospitals().contains(h)) {
             p.getHospitals().add(h);
-            hospitalRepo.save(h); // Save hospital to ensure bidirectional mapping
-        }
+            h.getPatients().add(p); // Update the hospital’s patient list too
 
-        patientRepo.save(p); //  Save patient with updated list
+            patientRepo.save(p);  // Save patient with updated hospital list
+            hospitalRepo.save(h);  // Save hospital with updated patient list
+        }
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "Hospital added");
-
         return ResponseEntity.ok(response);
     }
 
