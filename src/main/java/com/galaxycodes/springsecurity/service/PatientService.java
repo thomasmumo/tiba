@@ -197,4 +197,12 @@ public class PatientService {
         return ResponseEntity.ok(response);
     }
 
+    public ResponseEntity<?> startProcess(String username) {
+        Patients p = patientRepo.findByUserName(username);
+        p.setInProgress(true);
+        patientRepo.save(p);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "process initialized");
+        return ResponseEntity.ok(response);
+    }
 }

@@ -45,6 +45,10 @@ public class PatientsController {
     public ResponseEntity<?> addHospital(@PathVariable("userName") String username, @PathVariable("hospitalId") Integer hospitalID) {
         return patientService.addHospital(username,hospitalID);
     }
+    @PutMapping("/patients/{userName}/start-process")
+    public ResponseEntity<?> startProcess(@PathVariable("userName") String username) {
+        return patientService.startProcess(username);
+    }
 
     @DeleteMapping("/patients/{user-name}/delete-patient")
     public ResponseEntity<?> deletePatient(@PathVariable("user-name") String username) {
