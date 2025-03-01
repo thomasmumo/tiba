@@ -6,7 +6,7 @@ import com.galaxycodes.springsecurity.service.AppointmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin(origins = "*")
 @RestController
 public class AppointmentsController {
     @Autowired
