@@ -1,6 +1,7 @@
 package com.galaxycodes.springsecurity.service;
 
 import com.galaxycodes.springsecurity.DTOs.HospitalDTO;
+import com.galaxycodes.springsecurity.DTOs.HospitalPatientsResponseDTO;
 import com.galaxycodes.springsecurity.DTOs.HospitalResponseDTO;
 import com.galaxycodes.springsecurity.model.Hospitals;
 import com.galaxycodes.springsecurity.repo.HospitalsRepo;
@@ -55,7 +56,10 @@ public class HospitalsService {
     }
 
     public ResponseEntity<?> getHospital(Integer hospitalID) {
-       Optional<Hospitals> hospital = hospitalsRepo.findById(hospitalID);
-       return  new ResponseEntity<>(hospital, HttpStatus.OK);
+        Optional<Hospitals> h = hospitalsRepo.findById(hospitalID);
+        HospitalPatientsResponseDTO hospitalDTO = new HospitalPatientsResponseDTO(
+               h.get().getId(),h.get().getHospitalName(),h.get().getPatients()
+       );
+       return  new ResponseEntity<>(hospitalDTO, HttpStatus.OK);
     }
 }
