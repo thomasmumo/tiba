@@ -58,7 +58,7 @@ public class HospitalsService {
     public ResponseEntity<?> getHospital(Integer hospitalID) {
         Optional<Hospitals> h = hospitalsRepo.findById(hospitalID);
         HospitalPatientsResponseDTO hospitalDTO = new HospitalPatientsResponseDTO(
-               h.get().getId(),h.get().getHospitalName(),h.get().getPatients()
+               h.get().getId(),h.get().getHospitalName(),h.get().getPatients(),h.get().getUsers()
        );
        return  new ResponseEntity<>(hospitalDTO, HttpStatus.OK);
     }
