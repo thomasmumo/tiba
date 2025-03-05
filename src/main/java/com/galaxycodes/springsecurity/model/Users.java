@@ -32,22 +32,22 @@ public class Users {
 
 
     @OneToMany(mappedBy = "user")
-
+    @JsonIgnore
     private List<MedicalRecords> medicalRecords;
     @OneToMany(mappedBy = "userInImages")
-
+    @JsonIgnore
     private List<LabImages> images;
 
     @OneToMany(mappedBy = "userInReferrals")
-
+    @JsonIgnore
     private List<Referrals> referrals;
 
     @OneToMany(mappedBy = "userInStaffManagement")
-
+    @JsonIgnore
     private List<StaffManagement> attendance;
 
     @OneToMany(mappedBy = "userInAppointment")
-
+    @JsonIgnore
     private List<Appointments> appointments;
 
     @ManyToOne(fetch = FetchType.EAGER)

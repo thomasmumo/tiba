@@ -15,27 +15,27 @@ public class Hospitals {
     private String hospitalName;
     private String location;
     @OneToMany(mappedBy = "hospital")
-
+    @JsonIgnore
     private List<MedicalRecords> medicalRecords;
 
     @OneToMany(mappedBy = "hospitalInUsers")
-
+    @JsonIgnore
     private List<Users> users;
 
     @OneToMany(mappedBy = "hospitalInImages")
-
+    @JsonIgnore
     private List<LabImages> images;
 
     @OneToMany(mappedBy = "hospital")
-
+    @JsonIgnore
     private List<Referrals> referrals;
 
     @OneToMany(mappedBy = "hospital")
-
+    @JsonIgnore
     private List<StaffManagement> attendance;
 
     @OneToMany(mappedBy = "hospital")
-
+    @JsonIgnore
     private List<Appointments> appointments;
     @ManyToMany(mappedBy = "hospitals")
     @JsonIgnore

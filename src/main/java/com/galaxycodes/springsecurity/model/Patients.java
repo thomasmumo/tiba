@@ -37,16 +37,17 @@ public class Patients {
     private String lastName;
     private String phone;
     @OneToMany(mappedBy = "patient")
-
+    @JsonIgnore
     private List<Appointments> appointments;
     @OneToMany(mappedBy = "patientInImages")
-
+    @JsonIgnore
     private List<LabImages> images;
 
     @OneToMany(mappedBy = "patient")
-
+    @JsonIgnore
     private List<MedicalRecords> medicalRecords;
     @OneToMany(mappedBy = "patient")
+    @JsonIgnore
     private List<Referrals> referrals;
     @ManyToMany
     @JoinTable(
