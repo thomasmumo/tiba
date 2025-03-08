@@ -7,6 +7,7 @@ import com.galaxycodes.springsecurity.model.Hospitals;
 import com.galaxycodes.springsecurity.model.Patients;
 import com.galaxycodes.springsecurity.model.Users;
 import com.galaxycodes.springsecurity.repo.HospitalsRepo;
+import com.galaxycodes.springsecurity.repo.MedicalRecordsRepo;
 import com.galaxycodes.springsecurity.repo.PatientRepo;
 import com.galaxycodes.springsecurity.utils.ImagesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,9 @@ public class PatientService {
 
     @Autowired
     private HospitalsRepo hospitalRepo;
+
+    @Autowired
+    private MedicalRecordsService medicalRecordsService;
 
 
 
@@ -144,6 +148,10 @@ public class PatientService {
         Optional.ofNullable(dto.weight()).ifPresent(patient::setWeight);
         Optional.ofNullable(dto.sex()).ifPresent(patient::setSex);
         Optional.ofNullable(dto.temperature()).ifPresent(patient::setTemperature);
+
+        if (dto.doctorID() != null) {
+            this.medicalRecordsService.createRecord(patient.getId(), dto.hospitalID(), dto.doctorID());
+        }
 
         patientRepo.save(patient);
 

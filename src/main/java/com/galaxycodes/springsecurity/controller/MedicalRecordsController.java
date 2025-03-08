@@ -18,9 +18,9 @@ public class MedicalRecordsController {
     @Autowired
     private MedicalRecordsService medicalRecordsService;
 
-    @PostMapping("/medical-records/{patient-id}/{hospital-id}/create-medical-record")
-    public ResponseEntity<?> createMedicalRecord(@PathVariable("patient-id") Integer patientID,@PathVariable("hospital-id") Integer hospitalID) {
-        return medicalRecordsService.createRecord(patientID,hospitalID);
+    @PostMapping("/medical-records/{patient-id}/{doc-id}/{hospital-id}/create-medical-record")
+    public ResponseEntity<?> createMedicalRecord(@PathVariable("patient-id") Integer patientID,@PathVariable("hospital-id") Integer hospitalID,@PathVariable("doc-id")Integer docID) {
+        return medicalRecordsService.createRecord(patientID,hospitalID,docID);
     }
     @PutMapping("/medical-records/{doctor-id}/{patient-id}/assign-doctor")
     public ResponseEntity<?> assignDoctor(@PathVariable("doctor-id") Integer doctorID,@PathVariable("patient-id") Integer patientID) {

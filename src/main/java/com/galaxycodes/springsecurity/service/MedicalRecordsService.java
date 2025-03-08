@@ -31,7 +31,7 @@ public class MedicalRecordsService {
 
 
 
-    public ResponseEntity<?> createRecord(Integer patientID,Integer hospitalID) {
+    public ResponseEntity<?> createRecord(Integer patientID,Integer hospitalID, Integer doctorID) {
         var medicalRecord = new MedicalRecords();
         var patient = new Patients();
         patient.setId(patientID);
@@ -39,9 +39,13 @@ public class MedicalRecordsService {
         var hospital = new Hospitals();
         hospital.setId(hospitalID);
 
+        var doc = new Users();
+        doc.setId(doctorID);
+
 
         medicalRecord.setPatient(patient);
         medicalRecord.setHospital(hospital);
+        medicalRecord.setUser(doc);
         medicalRecordsRepo.save(medicalRecord);
 
         Map<String, String> response = new HashMap<>();
