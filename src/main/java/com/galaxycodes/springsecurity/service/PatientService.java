@@ -235,7 +235,30 @@ public class PatientService {
         return ResponseEntity.ok(response);
     }
 
-    public ResponseEntity<?> getPatient(String userName) {
-        return new ResponseEntity<>(patientRepo.findByUserName(userName), HttpStatus.OK);
+    public PatientResponseDTO getPatient(String userName) {
+        Patients patient = patientRepo.findByUserName(userName);
+
+        return new PatientResponseDTO(
+                patient.getId(),
+                patient.getFirstName() + " " + patient.getLastName(),
+                patient.getUserName(),
+                patient.getEmail(),
+                patient.getSex(),
+                patient.getAllergies(),
+                patient.getWeight(),
+                patient.getHeight(),
+                patient.getBloodPressure(),
+                patient.getBloodType(),
+                patient.getBirthDate(),
+                patient.getAddress(),
+                patient.getInProgress(),
+                patient.getPhone(),
+                patient.getAppointments(),
+                patient.getMedicalRecords(),
+                patient.getReferrals(),
+                patient.getHospitals()  // ✅ Now explicitly including hospitals
+
+
+        );
     }
 }

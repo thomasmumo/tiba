@@ -1,5 +1,6 @@
 package com.galaxycodes.springsecurity.controller;
 
+import com.galaxycodes.springsecurity.DTOs.PatientResponseDTO;
 import com.galaxycodes.springsecurity.DTOs.PatientsDTO;
 import com.galaxycodes.springsecurity.DTOs.UpdatePatientDTO;
 import com.galaxycodes.springsecurity.model.Patients;
@@ -32,7 +33,7 @@ public class PatientsController {
         return patientService.getAllPatients();
     }
     @GetMapping("/patients/{username}/get-patient")
-    public ResponseEntity<?> getPatient(@PathVariable("username") String userName) {
+    public PatientResponseDTO getPatient(@PathVariable("username") String userName) {
         return patientService.getPatient(userName);
     }
 
