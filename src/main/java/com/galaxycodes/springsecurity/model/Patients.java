@@ -26,6 +26,7 @@ public class Patients {
 
     private Integer weight;
     private Integer height;
+    private Integer temperature;
     private String bloodPressure;
     private  String bloodType;
     private Date birthDate;
@@ -67,10 +68,11 @@ public class Patients {
 
 
 
-    public Patients(List<LabImages> images, String phone, Boolean inProgress,List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, Integer weight, Integer height, String bloodPressure, String bloodType, Date birthDate, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
+    public Patients(List<LabImages> images,Integer temperature, String phone, Boolean inProgress, List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, Integer weight, Integer height, String bloodPressure, String bloodType, Date birthDate, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
         this.userName = userName;
         this.password = password;
         this.inProgress = inProgress;
+        this.temperature = temperature;
         this.referrals = referrals;
         this.images = images;
         this.phone = phone;
@@ -89,6 +91,14 @@ public class Patients {
         this.appointments = appointments;
         this.medicalRecords = medicalRecords;
         this.hospitals = hospitals;
+    }
+
+    public Integer getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Integer temperature) {
+        this.temperature = temperature;
     }
 
     public Boolean getInProgress() {

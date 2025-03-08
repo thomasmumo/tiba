@@ -24,10 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PatientService {
@@ -136,13 +133,18 @@ public class PatientService {
 
     public ResponseEntity<?> updatePatientsDetails(String username, UpdatePatientDTO dto) {
         var patient = patientRepo.findByUserName(username);
-        patient.setFirstName(dto.firstName());
-        patient.setLastName(dto.lastName());
-        patient.setEmail(dto.email());
-        patient.setPassword(encoder.encode(dto.password()));
-        patient.setAddress(dto.address());
-        patient.setPhone(dto.phoneNumber());
-        patient.setUserName(dto.userName());
+        Optional.ofNullable(dto.email()).ifPresent(patient::setEmail);
+        Optional.ofNullable(dto.address()).ifPresent(patient::setAddress);
+        Optional.ofNullable(dto.firstName()).ifPresent(patient::setFirstName);
+        Optional.ofNullable(dto.lastName()).ifPresent(patient::setLastName);
+        Optional.ofNullable(dto.phoneNumber()).ifPresent(patient::setPhone);
+        Optional.ofNullable(dto.bloodType()).ifPresent(patient::setBloodType);
+        Optional.ofNullable(dto.bloodPressure()).ifPresent(patient::setBloodPressure);
+        Optional.ofNullable(dto.height()).ifPresent(patient::setHeight);
+        Optional.ofNullable(dto.weight()).ifPresent(patient::setWeight);
+        Optional.ofNullable(dto.sex()).ifPresent(patient::setSex);
+        Optional.ofNullable(dto.temperature()).ifPresent(patient::setTemperature);
+
         patientRepo.save(patient);
 
         Map<String, String> response = new HashMap<>();
