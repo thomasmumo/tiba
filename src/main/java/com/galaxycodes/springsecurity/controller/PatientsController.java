@@ -31,6 +31,10 @@ public class PatientsController {
     public ResponseEntity<?> getAllPatients() {
         return patientService.getAllPatients();
     }
+    @GetMapping("/patients/{username}/get-patient")
+    public ResponseEntity<?> getPatient(@PathVariable("username") String userName) {
+        return patientService.getPatient(userName);
+    }
 
 
     @PostMapping("/patients/login")

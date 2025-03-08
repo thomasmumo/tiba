@@ -234,4 +234,8 @@ public class PatientService {
         response.put("message", "process initialized");
         return ResponseEntity.ok(response);
     }
+
+    public ResponseEntity<?> getPatient(String userName) {
+        return new ResponseEntity<>(patientRepo.findByUserName(userName), HttpStatus.OK);
+    }
 }
