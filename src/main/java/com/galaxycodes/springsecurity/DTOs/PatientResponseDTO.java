@@ -17,7 +17,7 @@ public record PatientResponseDTO(
         String allergies,
         Integer weight,
         Integer height,
-        Integer bloodPressure,
+        String bloodPressure,
         String bloodType,
         Date birthDate,
         String address,
