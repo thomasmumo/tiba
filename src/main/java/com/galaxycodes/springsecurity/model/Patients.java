@@ -26,7 +26,7 @@ public class Patients {
 
     private Integer weight;
     private Integer height;
-    private Integer bloodPressure;
+    private String bloodPressure;
     private  String bloodType;
     private Date birthDate;
     @Lob
@@ -67,7 +67,7 @@ public class Patients {
 
 
 
-    public Patients(List<LabImages> images, String phone, Boolean inProgress,List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, Integer weight, Integer height, Integer bloodPressure, String bloodType, Date birthDate, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
+    public Patients(List<LabImages> images, String phone, Boolean inProgress,List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, Integer weight, Integer height, String bloodPressure, String bloodType, Date birthDate, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
         this.userName = userName;
         this.password = password;
         this.inProgress = inProgress;
@@ -187,11 +187,11 @@ public class Patients {
         this.height = height;
     }
 
-    public Integer getBloodPressure() {
+    public String getBloodPressure() {
         return bloodPressure;
     }
 
-    public void setBloodPressure(Integer bloodPressure) {
+    public void setBloodPressure(String bloodPressure) {
         this.bloodPressure = bloodPressure;
     }
 
