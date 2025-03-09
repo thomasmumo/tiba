@@ -134,7 +134,7 @@ public class PatientService {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Email or password");
 
     }
-
+    @Transactional
     public ResponseEntity<?> updatePatientsDetails(String username, UpdatePatientDTO dto) {
         var patient = patientRepo.findByUserName(username);
         Optional.ofNullable(dto.email()).ifPresent(patient::setEmail);
