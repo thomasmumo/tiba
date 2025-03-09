@@ -134,7 +134,7 @@ public class PatientService {
     }
 
     public ResponseEntity<?> updatePatientsDetails(String username, UpdatePatientDTO dto) {
-        var patient = patientRepo.findByUserName(username);
+        Patients patient = patientRepo.findByUserName(username);
         patient.setWeight(dto.weight());
         Optional.ofNullable(dto.email()).ifPresent(patient::setEmail);
         Optional.ofNullable(dto.address()).ifPresent(patient::setAddress);
