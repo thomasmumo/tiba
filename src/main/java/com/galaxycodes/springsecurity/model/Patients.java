@@ -24,9 +24,9 @@ public class Patients {
     private String sex;
     private String allergies;
 
-    private Integer weight;
-    private Integer height;
-    private Integer temperature;
+    private double weight;
+    private double height;
+    private double temperature;
     private String bloodPressure;
     private  String bloodType;
     private Date birthDate;
@@ -37,6 +37,7 @@ public class Patients {
     private String firstName;
     private String lastName;
     private String phone;
+    private boolean sendToDoctor = false;
     @OneToMany(mappedBy = "patient")
     @JsonIgnore
     private List<Appointments> appointments;
@@ -68,9 +69,10 @@ public class Patients {
 
 
 
-    public Patients(List<LabImages> images,Integer temperature, String phone, Boolean inProgress, List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, Integer weight, Integer height, String bloodPressure, String bloodType, Date birthDate, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
+    public Patients(List<LabImages> images, boolean sendToDoctor,double temperature, String phone, Boolean inProgress, List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, double weight, double height, String bloodPressure, String bloodType, Date birthDate, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
         this.userName = userName;
         this.password = password;
+        this.sendToDoctor = sendToDoctor;
         this.inProgress = inProgress;
         this.temperature = temperature;
         this.referrals = referrals;
@@ -93,11 +95,19 @@ public class Patients {
         this.hospitals = hospitals;
     }
 
-    public Integer getTemperature() {
+    public boolean isSendToDoctor() {
+        return sendToDoctor;
+    }
+
+    public void setSendToDoctor(boolean sendToDoctor) {
+        this.sendToDoctor = sendToDoctor;
+    }
+
+    public double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
 
@@ -181,19 +191,19 @@ public class Patients {
         this.allergies = allergies;
     }
 
-    public Integer getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public Integer getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public void setHeight(Integer height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 

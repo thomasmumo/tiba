@@ -148,7 +148,9 @@ public class PatientService {
         Optional.ofNullable(dto.temperature()).ifPresent(patient::setTemperature);
 
         if (dto.doctorID() != null) {
+
             medicalRecordsService.createRecord(patient.getId(), dto.hospitalID(), dto.doctorID());
+            patient.isSendToDoctor();
         }
 
         patientRepo.save(patient);
@@ -199,6 +201,8 @@ public class PatientService {
                 patient.getAddress(),
                 patient.getInProgress(),
                 patient.getPhone(),
+                patient.isSendToDoctor(),
+                patient.getTemperature(),
                 patient.getAppointments(),
                 patient.getMedicalRecords(),
                 patient.getReferrals(),
@@ -262,6 +266,8 @@ public class PatientService {
                 patient.getAddress(),
                 patient.getInProgress(),
                 patient.getPhone(),
+                patient.isSendToDoctor(),
+                patient.getTemperature(),
                 patient.getAppointments(),
                 patient.getMedicalRecords(),
                 patient.getReferrals(),
