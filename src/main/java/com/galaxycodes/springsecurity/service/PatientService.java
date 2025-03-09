@@ -150,7 +150,7 @@ public class PatientService {
         if (dto.doctorID() != null) {
 
             medicalRecordsService.createRecord(patient.getId(), dto.hospitalID(), dto.doctorID());
-            patient.isSendToDoctor();
+            patient.setSendToDoctor(true);
         }
 
         patientRepo.save(patient);
