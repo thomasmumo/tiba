@@ -1,8 +1,6 @@
 package com.galaxycodes.springsecurity.service;
 
-import com.galaxycodes.springsecurity.DTOs.PatientResponseDTO;
-import com.galaxycodes.springsecurity.DTOs.PatientsDTO;
-import com.galaxycodes.springsecurity.DTOs.UpdatePatientDTO;
+import com.galaxycodes.springsecurity.DTOs.*;
 import com.galaxycodes.springsecurity.model.Hospitals;
 import com.galaxycodes.springsecurity.model.Patients;
 import com.galaxycodes.springsecurity.model.Users;
@@ -134,9 +132,10 @@ public class PatientService {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Email or password");
 
     }
-    @Transactional
+
     public ResponseEntity<?> updatePatientsDetails(String username, UpdatePatientDTO dto) {
         var patient = patientRepo.findByUserName(username);
+        patient.setWeight(dto.weight());
         Optional.ofNullable(dto.email()).ifPresent(patient::setEmail);
         Optional.ofNullable(dto.address()).ifPresent(patient::setAddress);
         Optional.ofNullable(dto.firstName()).ifPresent(patient::setFirstName);
@@ -145,12 +144,12 @@ public class PatientService {
         Optional.ofNullable(dto.bloodType()).ifPresent(patient::setBloodType);
         Optional.ofNullable(dto.bloodPressure()).ifPresent(patient::setBloodPressure);
         Optional.ofNullable(dto.height()).ifPresent(patient::setHeight);
-        Optional.ofNullable(dto.weight()).ifPresent(patient::setWeight);
+
         Optional.ofNullable(dto.sex()).ifPresent(patient::setSex);
         Optional.ofNullable(dto.temperature()).ifPresent(patient::setTemperature);
 
         if (dto.doctorID() != null) {
-            this.medicalRecordsService.createRecord(patient.getId(), dto.hospitalID(), dto.doctorID());
+            medicalRecordsService.createRecord(patient.getId(), dto.hospitalID(), dto.doctorID());
         }
 
         patientRepo.save(patient);
