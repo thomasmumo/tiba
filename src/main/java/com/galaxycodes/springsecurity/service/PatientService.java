@@ -135,15 +135,30 @@ public class PatientService {
 
     public ResponseEntity<?> updatePatientsDetails(String username, UpdatePatientDTO dto) {
         Patients patient = patientRepo.findByUserName(username);
-        patient.setLastName(dto.lastName());
+        Optional.ofNullable(dto.email()).ifPresent(patient::setEmail);
+        Optional.ofNullable(dto.address()).ifPresent(patient::setAddress);
+        Optional.ofNullable(dto.firstName()).ifPresent(patient::setFirstName);
+        Optional.ofNullable(dto.lastName()).ifPresent(patient::setLastName);
+        Optional.ofNullable(dto.phoneNumber()).ifPresent(patient::setPhone);
+        Optional.ofNullable(dto.bloodType()).ifPresent(patient::setBloodType);
+        Optional.ofNullable(dto.bloodPressure()).ifPresent(patient::setBloodPressure);
+        Optional.ofNullable(dto.height()).ifPresent(patient::setHeight);
+        Optional.ofNullable(dto.weight()).ifPresent(patient::setWeight);
+        Optional.ofNullable(dto.sex()).ifPresent(patient::setSex);
+        Optional.ofNullable(dto.temperature()).ifPresent(patient::setTemperature);
+
+        if (dto.doctorID() != null) {
+            medicalRecordsService.createRecord(patient.getId(), dto.hospitalID(), dto.doctorID());
+        }
+
         patientRepo.save(patient);
 
-//        Map<String, String> response = new HashMap<>();
-//        response.put("message", "patient updated successfully");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "patient updated successfully");
 
-//
-//        return ResponseEntity.ok(response);
-        return new ResponseEntity<>(patientRepo.findByUserName(username), HttpStatus.OK);
+
+        return ResponseEntity.ok(response);
+
 
 
 

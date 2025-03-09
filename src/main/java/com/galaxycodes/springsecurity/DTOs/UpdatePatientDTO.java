@@ -5,11 +5,19 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record UpdatePatientDTO(
-
-
-
-
-        String lastName
+    String email,
+    String address,
+    String firstName,
+    String lastName,
+    String phoneNumber,
+    String bloodType,
+    String bloodPressure,
+    Integer height,
+    Integer weight,
+    String sex,
+    Integer temperature,
+    Integer doctorID,
+    Integer hospitalID
 
 ) {
 }
