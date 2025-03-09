@@ -8,18 +8,8 @@ public record UpdatePatientDTO(
 
 
 
-        String email,
-        String address,
-        String firstName,
-        String lastName,
-        String phoneNumber,
-        String bloodType,
-        String bloodPressure,
-        Integer height,
-        Integer weight,
-        String sex,
-        Integer temperature,
-        Integer doctorID,
-        Integer hospitalID
+
+        String lastName
+
 ) {
 }

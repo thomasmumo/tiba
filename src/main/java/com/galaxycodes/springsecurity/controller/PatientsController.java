@@ -23,6 +23,7 @@ public class PatientsController {
     @Autowired
     private PatientService patientService;
 
+
     @PostMapping("/patients/create-patient")
     public ResponseEntity<?> createPatient(@Valid @RequestBody PatientsDTO dto) throws IOException {
         return patientService.createPatient(dto);
