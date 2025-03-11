@@ -239,4 +239,8 @@ public class MedicalRecordsService {
         return ResponseEntity.ok(response);
 
     }
+
+    public ResponseEntity<?> getAllHospitalRecords(Integer hospitalID) {
+        return new ResponseEntity<>(medicalRecordsRepo.findAllByHospital_id(hospitalID), HttpStatus.OK);
+    }
 }

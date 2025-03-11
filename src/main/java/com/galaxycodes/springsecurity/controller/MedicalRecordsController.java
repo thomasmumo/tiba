@@ -56,6 +56,10 @@ public class MedicalRecordsController {
     public ResponseEntity<?> getAllRecords(@PathVariable("patient-id") Integer patientID) throws IOException {
         return medicalRecordsService.getAllRecords(patientID);
     }
+    @GetMapping("/medical-records/{hospital-id}/get-all-records")
+    public ResponseEntity<?> getAllHospitalRecords(@PathVariable("hospital-id") Integer hospitalID) throws IOException {
+        return medicalRecordsService.getAllHospitalRecords(hospitalID);
+    }
     @PutMapping("/medical-records/{patient-id}/prescription")
     public ResponseEntity<?> prescription(@Valid @RequestBody PrescriptionDTO dto,@PathVariable("patient-id") Integer patientID) {
         return medicalRecordsService.prescription(patientID,dto);
