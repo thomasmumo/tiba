@@ -248,6 +248,7 @@ public class MedicalRecordsService {
         return records.stream()
                 .map(record -> new MedicalRecordsResponseDTO(
                         record.getId(),
+                        record.getDate(),
                         record.getCondition(),
                         record.getSymptoms(),
                         new UsersResponseDTO(record.getUser().getId(),record.getUser().getFirstName(),record.getUser().getLastName()), // Directly mapping Users (Consider a DTO here)
