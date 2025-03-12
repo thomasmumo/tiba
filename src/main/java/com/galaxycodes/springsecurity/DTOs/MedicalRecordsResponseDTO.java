@@ -9,7 +9,7 @@ public record MedicalRecordsResponseDTO(
         String conclusion,
         String symptoms,
         Users user,
-        Hospitals hospital,
+        HospitalDTO hospital,
         Patients patient
 ) {
 }
