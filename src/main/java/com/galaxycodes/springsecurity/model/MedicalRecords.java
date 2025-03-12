@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class MedicalRecords {
 
     private List<String> imagingPath;
     private Integer imagingTechId;
-    private LocalDate date = LocalDate.now();
+    private LocalDate date = LocalDate.now(ZoneOffset.UTC);
     private String medicalRecordStatus = "Open";
     @ManyToOne
     @JoinColumn(name = "user_id")
