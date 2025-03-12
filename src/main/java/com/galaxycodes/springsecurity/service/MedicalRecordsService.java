@@ -253,7 +253,8 @@ public class MedicalRecordsService {
                         record.getSymptoms(),
                         new UsersResponseDTO(record.getUser().getId(),record.getUser().getFirstName(),record.getUser().getLastName()), // Directly mapping Users (Consider a DTO here)
                         new HospitalDTO(record.getHospital().getHospitalName(),record.getHospital().getLocation()),
-                        record.getPatient()
+                        record.getPatient(),
+                        record.getMedicalRecordStatus()
                 ))
                 .toList();
 
