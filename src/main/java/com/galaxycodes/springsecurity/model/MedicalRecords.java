@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class MedicalRecords {
+    ZoneId nairobiZone = ZoneId.of("Africa/Nairobi");
     @Id
     @GeneratedValue
     private Integer id;
@@ -32,7 +34,7 @@ public class MedicalRecords {
 
     private List<String> imagingPath;
     private Integer imagingTechId;
-    private LocalDate date = LocalDate.now();
+    private LocalDate date = LocalDate.now(nairobiZone);
     private String medicalRecordStatus = "Open";
     @ManyToOne
     @JoinColumn(name = "user_id")
