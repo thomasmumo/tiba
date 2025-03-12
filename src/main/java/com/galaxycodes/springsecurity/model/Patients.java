@@ -29,7 +29,7 @@ public class Patients {
     private double temperature;
     private String bloodPressure;
     private  String bloodType;
-    private Date birthDate;
+    private String age;
     @Lob
     private byte[] profileImageData;
     private String address;
@@ -69,7 +69,7 @@ public class Patients {
 
 
 
-    public Patients(List<LabImages> images, boolean sendToDoctor,double temperature, String phone, Boolean inProgress, List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, double weight, double height, String bloodPressure, String bloodType, Date birthDate, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
+    public Patients(List<LabImages> images, boolean sendToDoctor,double temperature, String phone, Boolean inProgress, List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, double weight, double height, String bloodPressure, String bloodType, String age, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
         this.userName = userName;
         this.password = password;
         this.sendToDoctor = sendToDoctor;
@@ -86,7 +86,7 @@ public class Patients {
         this.height = height;
         this.bloodPressure = bloodPressure;
         this.bloodType = bloodType;
-        this.birthDate = birthDate;
+        this.age = age;
         this.address = address;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -223,12 +223,12 @@ public class Patients {
         this.bloodType = bloodType;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public String getAge() {
+        return age;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setAge(String age) {
+        this.age = age;
     }
 
     public String getAddress() {

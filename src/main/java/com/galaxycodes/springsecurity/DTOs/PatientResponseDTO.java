@@ -19,7 +19,7 @@ public record PatientResponseDTO(
         double height,
         String bloodPressure,
         String bloodType,
-        Date birthDate,
+        String age,
         String address,
         Boolean InProgress,
         String phone,

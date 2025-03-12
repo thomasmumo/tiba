@@ -11,6 +11,7 @@ public record UpdatePatientDTO(
     String lastName,
     String phoneNumber,
     String bloodType,
+    String age,
     String bloodPressure,
     Integer height,
     Integer weight,

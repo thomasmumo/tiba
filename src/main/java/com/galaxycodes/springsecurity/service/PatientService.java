@@ -145,6 +145,7 @@ public class PatientService {
         Optional.ofNullable(dto.height()).ifPresent(patient::setHeight);
         Optional.ofNullable(dto.weight()).ifPresent(patient::setWeight);
         Optional.ofNullable(dto.sex()).ifPresent(patient::setSex);
+        Optional.ofNullable(dto.age()).ifPresent(patient::setAge);
         Optional.ofNullable(dto.temperature()).ifPresent(patient::setTemperature);
 
         if (dto.doctorID() != null) {
@@ -197,7 +198,7 @@ public class PatientService {
                 patient.getHeight(),
                 patient.getBloodPressure(),
                 patient.getBloodType(),
-                patient.getBirthDate(),
+                patient.getAge(),
                 patient.getAddress(),
                 patient.getInProgress(),
                 patient.getPhone(),
@@ -262,7 +263,7 @@ public class PatientService {
                 patient.getHeight(),
                 patient.getBloodPressure(),
                 patient.getBloodType(),
-                patient.getBirthDate(),
+                patient.getAge(),
                 patient.getAddress(),
                 patient.getInProgress(),
                 patient.getPhone(),
