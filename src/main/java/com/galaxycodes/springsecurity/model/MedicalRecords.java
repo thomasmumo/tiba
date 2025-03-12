@@ -33,17 +33,17 @@ public class MedicalRecords {
     private Integer imagingTechId;
     private LocalDate date = LocalDate.now();
     private String medicalRecordStatus = "Open";
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
 
     private Users user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hospital_id")
 
     private Hospitals hospital;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
 
     private Patients patient;
