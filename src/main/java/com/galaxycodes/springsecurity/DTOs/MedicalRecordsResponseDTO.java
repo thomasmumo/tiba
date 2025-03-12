@@ -8,7 +8,7 @@ public record MedicalRecordsResponseDTO(
         Integer id,
         String conclusion,
         String symptoms,
-        Users user,
+        UsersResponseDTO user,
         HospitalDTO hospital,
         Patients patient
 ) {

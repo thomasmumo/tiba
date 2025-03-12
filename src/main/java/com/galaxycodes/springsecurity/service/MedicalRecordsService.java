@@ -3,6 +3,7 @@ package com.galaxycodes.springsecurity.service;
 import com.galaxycodes.springsecurity.DTOs.HospitalDTO;
 import com.galaxycodes.springsecurity.DTOs.MedicalRecordsResponseDTO;
 import com.galaxycodes.springsecurity.DTOs.PrescriptionDTO;
+import com.galaxycodes.springsecurity.DTOs.UsersResponseDTO;
 import com.galaxycodes.springsecurity.model.*;
 import com.galaxycodes.springsecurity.repo.LabImagesRepo;
 import com.galaxycodes.springsecurity.repo.MedicalRecordsRepo;
@@ -249,7 +250,7 @@ public class MedicalRecordsService {
                         record.getId(),
                         record.getCondition(),
                         record.getSymptoms(),
-                        record.getUser(), // Directly mapping Users (Consider a DTO here)
+                        new UsersResponseDTO(record.getUser().getId(),record.getUser().getFirstName(),record.getUser().getLastName()), // Directly mapping Users (Consider a DTO here)
                         new HospitalDTO(record.getHospital().getHospitalName(),record.getHospital().getLocation()),
                         record.getPatient()
                 ))
