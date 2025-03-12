@@ -1,6 +1,7 @@
 package com.galaxycodes.springsecurity.controller;
 
 
+import com.galaxycodes.springsecurity.DTOs.MedicalRecordsResponseDTO;
 import com.galaxycodes.springsecurity.DTOs.PrescriptionDTO;
 import com.galaxycodes.springsecurity.service.MedicalRecordsService;
 import jakarta.validation.Valid;
@@ -57,7 +58,7 @@ public class MedicalRecordsController {
         return medicalRecordsService.getAllRecords(patientID);
     }
     @GetMapping("/medical-records/{hospital-id}/get-all-hospital-records")
-    public ResponseEntity<?> getAllHospitalRecords(@PathVariable("hospital-id") Integer hospitalID) throws IOException {
+    public List<MedicalRecordsResponseDTO> getAllHospitalRecords(@PathVariable("hospital-id") Integer hospitalID) throws IOException {
         return medicalRecordsService.getAllHospitalRecords(hospitalID);
     }
     @PutMapping("/medical-records/{patient-id}/prescription")

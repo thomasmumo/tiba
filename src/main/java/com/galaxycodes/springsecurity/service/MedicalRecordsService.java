@@ -1,5 +1,6 @@
 package com.galaxycodes.springsecurity.service;
 
+import com.galaxycodes.springsecurity.DTOs.MedicalRecordsResponseDTO;
 import com.galaxycodes.springsecurity.DTOs.PrescriptionDTO;
 import com.galaxycodes.springsecurity.model.*;
 import com.galaxycodes.springsecurity.repo.LabImagesRepo;
@@ -240,7 +241,18 @@ public class MedicalRecordsService {
 
     }
 
-    public ResponseEntity<?> getAllHospitalRecords(Integer hospitalID) {
-        return new ResponseEntity<>(medicalRecordsRepo.findAllByHospital_id(hospitalID), HttpStatus.OK);
+    public List<MedicalRecordsResponseDTO> getAllHospitalRecords(Integer hospitalID) {
+        var records = medicalRecordsRepo.findAllByHospital_id(hospitalID);
+        return records.stream()
+                .map(record -> new MedicalRecordsResponseDTO(
+                        record.getId(),
+                        record.getCondition(),
+                        record.getSymptoms(),
+                        record.getUser(), // Directly mapping Users (Consider a DTO here)
+                        record.getHospital(),
+                        record.getPatient()
+                ))
+                .toList();
+
     }
 }

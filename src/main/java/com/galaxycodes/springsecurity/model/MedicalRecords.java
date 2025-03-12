@@ -19,6 +19,7 @@ public class MedicalRecords {
     private Integer id;
     private String condition;
     private String prescription;
+    private String symptoms;
     private String docComments;
     @ElementCollection
     private List<String> labTest;
@@ -33,17 +34,17 @@ public class MedicalRecords {
     private Integer imagingTechId;
     private LocalDate date = LocalDate.now();
     private String medicalRecordStatus = "Open";
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_id")
 
     private Users user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "hospital_id")
 
     private Hospitals hospital;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "patient_id")
 
     private Patients patient;
@@ -54,12 +55,12 @@ public class MedicalRecords {
 
 
 
-    public MedicalRecords(List<String> labComments, String medicalRecordStatus,Integer labTechId,  List<String> imagingPath, Integer imagingTechId, String condition, String prescription, String docComments, List<String> labTest, List<String> imagingTests, LocalDate date, Users user, Hospitals hospital, Patients patient) {
+    public MedicalRecords(List<String> labComments,String symptoms, String medicalRecordStatus, Integer labTechId, List<String> imagingPath, Integer imagingTechId, String condition, String prescription, String docComments, List<String> labTest, List<String> imagingTests, LocalDate date, Users user, Hospitals hospital, Patients patient) {
         this.condition = condition;
         this.labComments = labComments;
         this.medicalRecordStatus = medicalRecordStatus;
         this.labTechId = labTechId;
-
+        this.symptoms = symptoms;
         this.imagingPath = imagingPath;
         this.imagingTechId = imagingTechId;
         this.prescription = prescription;
@@ -70,6 +71,14 @@ public class MedicalRecords {
         this.user = user;
         this.hospital = hospital;
         this.patient = patient;
+    }
+
+    public String getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(String symptoms) {
+        this.symptoms = symptoms;
     }
 
     public String getMedicalRecordStatus() {
