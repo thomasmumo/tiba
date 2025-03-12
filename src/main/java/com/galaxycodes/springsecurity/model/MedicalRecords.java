@@ -31,7 +31,7 @@ public class MedicalRecords {
 
     private List<String> imagingPath;
     private Integer imagingTechId;
-    private LocalDate date = LocalDate.now(ZoneOffset.UTC);
+    private LocalDate date = LocalDate.now();
     private String medicalRecordStatus = "Open";
     @ManyToOne
     @JoinColumn(name = "user_id")
