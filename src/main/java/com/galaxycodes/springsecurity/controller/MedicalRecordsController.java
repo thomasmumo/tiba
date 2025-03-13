@@ -62,7 +62,7 @@ public class MedicalRecordsController {
         return medicalRecordsService.getAllHospitalRecords(hospitalID);
     }
     @PutMapping("/medical-records/{patient-id}/prescription")
-    public ResponseEntity<?> prescription(@Valid @RequestBody PrescriptionDTO dto,@PathVariable("patient-id") Integer patientID) {
+    public ResponseEntity<?> prescription( @RequestBody PrescriptionDTO dto,@PathVariable("patient-id") Integer patientID) {
         return medicalRecordsService.prescription(patientID,dto);
     }
 
