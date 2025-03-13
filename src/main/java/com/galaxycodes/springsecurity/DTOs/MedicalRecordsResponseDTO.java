@@ -14,6 +14,7 @@ public record MedicalRecordsResponseDTO(
         UsersResponseDTO user,
         HospitalDTO hospital,
         Patients patient,
-        String status
+        String status,
+        String prescription
 ) {
 }

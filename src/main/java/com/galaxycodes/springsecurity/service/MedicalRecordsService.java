@@ -232,7 +232,8 @@ public class MedicalRecordsService {
                         new UsersResponseDTO(record.getUser().getId(),record.getUser().getFirstName(),record.getUser().getLastName()), // Directly mapping Users (Consider a DTO here)
                         new HospitalDTO(record.getHospital().getHospitalName(),record.getHospital().getLocation()),
                         record.getPatient(),
-                        record.getMedicalRecordStatus()
+                        record.getMedicalRecordStatus(),
+                        record.getPrescription()
                 ))
                 .toList();
     }
@@ -265,7 +266,8 @@ public class MedicalRecordsService {
                         new UsersResponseDTO(record.getUser().getId(),record.getUser().getFirstName(),record.getUser().getLastName()), // Directly mapping Users (Consider a DTO here)
                         new HospitalDTO(record.getHospital().getHospitalName(),record.getHospital().getLocation()),
                         record.getPatient(),
-                        record.getMedicalRecordStatus()
+                        record.getMedicalRecordStatus(),
+                        record.getPrescription()
                 ))
                 .toList();
 
