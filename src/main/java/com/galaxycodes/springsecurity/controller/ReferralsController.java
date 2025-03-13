@@ -1,11 +1,15 @@
 package com.galaxycodes.springsecurity.controller;
 
 import com.galaxycodes.springsecurity.DTOs.ReferralsDTO;
+import com.galaxycodes.springsecurity.DTOs.ReferralsResponseDTO;
 import com.galaxycodes.springsecurity.service.ReferralsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 public class ReferralsController {
@@ -16,11 +20,15 @@ public class ReferralsController {
         return referralsService.createReferral(doctorID,dto);
     }
     @GetMapping("/referrals/{doctor-id}/get-received-referrals")
-    public ResponseEntity<?> receivedReferrals(@PathVariable("doctor-id") Integer doctorID){
+    public List<ReferralsResponseDTO> receivedReferrals(@PathVariable("doctor-id") Integer doctorID){
         return referralsService.receivedReferrals(doctorID);
     }
     @GetMapping("/referrals/{doctor-id}/get-send-referrals")
-    public ResponseEntity<?> sendReferrals(@PathVariable("doctor-id") Integer doctorID){
+    public List<ReferralsResponseDTO> sendReferrals(@PathVariable("doctor-id") Integer doctorID){
         return referralsService.sendReferrals(doctorID);
+    }
+    @GetMapping("/referrals/{patient-id}/get-patient-referrals")
+    public List<ReferralsResponseDTO> patientReferrals(@PathVariable("patient-id") Integer patientID){
+        return referralsService.patientReferrals(patientID);
     }
 }

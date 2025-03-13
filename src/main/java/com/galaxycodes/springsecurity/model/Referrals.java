@@ -6,19 +6,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Referrals {
+    ZoneId nairobiZone = ZoneId.of("Africa/Nairobi");
     @Id
     @GeneratedValue
     private Integer id;
     private String referralReason;
-    private Date referralDate=new Date();
+    private LocalDate referralDate=LocalDate.now(nairobiZone);
     @ManyToOne
     @JoinColumn(name = "userInReferrals_id")
-
     private Users userInReferrals;
 
     private Integer toStaffId;
@@ -29,24 +31,33 @@ public class Referrals {
     private Hospitals hospital;
     @ManyToOne
     @JoinColumn(name = "patient_id")
-
     private Patients patient;
 
     private Integer to_hospital_id;
+    String referralStatus = "pending";
 
     public Referrals() {
     }
 
 
 
-    public Referrals(Integer to_hospital_id,Patients patient, Integer toStaffId, String referralReason, Date referralDate, Users userInReferrals, Hospitals hospital) {
+    public Referrals(Integer to_hospital_id,String status,Patients patient, Integer toStaffId, String referralReason, LocalDate referralDate, Users userInReferrals, Hospitals hospital) {
         this.referralReason = referralReason;
         this.patient = patient;
+        this.referralStatus = status;
         this.to_hospital_id = to_hospital_id;
         this.toStaffId = toStaffId;
         this.referralDate = referralDate;
         this.userInReferrals = userInReferrals;
         this.hospital = hospital;
+    }
+
+    public String getReferralStatus() {
+        return referralStatus;
+    }
+
+    public void setReferralStatus(String referralStatus) {
+        this.referralStatus = referralStatus;
     }
 
     public Integer getToStaffId() {
@@ -97,11 +108,11 @@ public class Referrals {
         this.referralReason = referralReason;
     }
 
-    public Date getReferralDate() {
+    public LocalDate getReferralDate() {
         return referralDate;
     }
 
-    public void setReferralDate(Date referralDate) {
+    public void setReferralDate(LocalDate referralDate) {
         this.referralDate = referralDate;
     }
 

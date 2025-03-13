@@ -1,6 +1,6 @@
 package com.galaxycodes.springsecurity.service;
 
-import com.galaxycodes.springsecurity.DTOs.ReferralsDTO;
+import com.galaxycodes.springsecurity.DTOs.*;
 import com.galaxycodes.springsecurity.model.Hospitals;
 import com.galaxycodes.springsecurity.model.Patients;
 import com.galaxycodes.springsecurity.model.Referrals;
@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -67,20 +68,51 @@ public class ReferralsService {
 
     }
 
-    public ResponseEntity<?> receivedReferrals(Integer doctorID) {
+    public List<ReferralsResponseDTO> receivedReferrals(Integer doctorID) {
         var referrals = referralsRepo.findAllByToStaffId(doctorID);
-        if (referrals.isEmpty()) {
-            return new ResponseEntity<>("No referrals yet", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(referrals, HttpStatus.FOUND);
+        return referrals.stream()
+                .map(referral -> new ReferralsResponseDTO(
+                        new HospitalDTO(referral.getHospital().getHospitalName(),referral.getHospital().getLocation()),
+                        referral.getTo_hospital_id(),
+                        new UsersResponseDTO(referral.getUserInReferrals().getId(),referral.getUserInReferrals().getFirstName(),referral.getUserInReferrals().getLastName()),
+                        referral.getToStaffId(),
+                        referral.getReferralReason(),
+                        referral.getPatient(),
+                        referral.getReferralStatus(),
+                        referral.getReferralDate()
+                ))
+                .toList();
     }
 
-    public ResponseEntity<?> sendReferrals(Integer doctorID) {
+    public List<ReferralsResponseDTO> sendReferrals(Integer doctorID) {
         var referrals = referralsRepo.findAllByUserInReferrals_id(doctorID);
-        if (referrals.isEmpty()) {
-            return new ResponseEntity<>("No referrals yet", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(referrals, HttpStatus.FOUND);
+        return referrals.stream()
+                .map(referral -> new ReferralsResponseDTO(
+                        new HospitalDTO(referral.getHospital().getHospitalName(),referral.getHospital().getLocation()),
+                        referral.getTo_hospital_id(),
+                        new UsersResponseDTO(referral.getUserInReferrals().getId(),referral.getUserInReferrals().getFirstName(),referral.getUserInReferrals().getLastName()),
+                        referral.getToStaffId(),
+                        referral.getReferralReason(),
+                        referral.getPatient(),
+                        referral.getReferralStatus(),
+                        referral.getReferralDate()
+                ))
+                .toList();
+    }
 
+    public List<ReferralsResponseDTO> patientReferrals(Integer patientID) {
+        var referrals = referralsRepo.findAllByPatient_id(patientID);
+        return referrals.stream()
+                .map(referral -> new ReferralsResponseDTO(
+                        new HospitalDTO(referral.getHospital().getHospitalName(),referral.getHospital().getLocation()),
+                        referral.getTo_hospital_id(),
+                        new UsersResponseDTO(referral.getUserInReferrals().getId(),referral.getUserInReferrals().getFirstName(),referral.getUserInReferrals().getLastName()),
+                        referral.getToStaffId(),
+                        referral.getReferralReason(),
+                        referral.getPatient(),
+                        referral.getReferralStatus(),
+                        referral.getReferralDate()
+                ))
+                .toList();
     }
 }
