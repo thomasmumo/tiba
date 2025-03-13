@@ -221,9 +221,20 @@ public class MedicalRecordsService {
 
     }
 
-    public ResponseEntity<?> getAllRecords(Integer patientID) {
+    public List<MedicalRecordsResponseDTO> getAllRecords(Integer patientID) {
         var records = medicalRecordsRepo.findAllByPatient_id(patientID);
-        return new ResponseEntity<>(records, HttpStatus.OK);
+        return records.stream()
+                .map(record -> new MedicalRecordsResponseDTO(
+                        record.getId(),
+                        record.getDate(),
+                        record.getCondition(),
+                        record.getSymptoms(),
+                        new UsersResponseDTO(record.getUser().getId(),record.getUser().getFirstName(),record.getUser().getLastName()), // Directly mapping Users (Consider a DTO here)
+                        new HospitalDTO(record.getHospital().getHospitalName(),record.getHospital().getLocation()),
+                        record.getPatient(),
+                        record.getMedicalRecordStatus()
+                ))
+                .toList();
     }
 
     public ResponseEntity<?> prescription(Integer patientID, PrescriptionDTO dto) {

@@ -54,7 +54,7 @@ public class MedicalRecordsController {
     }
 
     @GetMapping("/medical-records/{patient-id}/get-all-records")
-    public ResponseEntity<?> getAllRecords(@PathVariable("patient-id") Integer patientID) throws IOException {
+    public List<MedicalRecordsResponseDTO> getAllRecords(@PathVariable("patient-id") Integer patientID) throws IOException {
         return medicalRecordsService.getAllRecords(patientID);
     }
     @GetMapping("/medical-records/{hospital-id}/get-all-hospital-records")
