@@ -243,9 +243,13 @@ public class MedicalRecordsService {
                 .stream()
                 .filter(rec -> rec.getMedicalRecordStatus().equals("Open"))
                 .collect(Collectors.toList()).get(0);
-        record.setPrescription(dto.prescription());
-        record.setCondition(dto.condition());
-        record.setMedicalRecordStatus("Closed");
+
+
+        Optional.ofNullable(dto.symptoms()).ifPresent(record::setSymptoms);
+        Optional.ofNullable(dto.prescription()).ifPresent(record::setPrescription);
+        Optional.ofNullable(dto.condition()).ifPresent(record::setCondition);
+        if(dto.complete().equals("complete")){record.setMedicalRecordStatus("Closed");}
+
         medicalRecordsRepo.save(record);
 
         Map<String, String> response = new HashMap<>();
