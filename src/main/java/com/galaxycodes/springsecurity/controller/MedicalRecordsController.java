@@ -65,6 +65,10 @@ public class MedicalRecordsController {
     public ResponseEntity<?> prescription( @RequestBody PrescriptionDTO dto,@PathVariable("patient-id") Integer patientID) {
         return medicalRecordsService.prescription(patientID,dto);
     }
+    @PutMapping("/medical-records/{patient-id}/close")
+    public ResponseEntity<?> close( @PathVariable("patient-id") Integer patientID) {
+        return medicalRecordsService.close(patientID);
+    }
 
 
 }

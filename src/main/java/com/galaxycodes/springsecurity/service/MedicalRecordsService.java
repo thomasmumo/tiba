@@ -276,4 +276,20 @@ public class MedicalRecordsService {
                 .toList();
 
     }
+
+    public ResponseEntity<?> close(Integer patientID) {
+        var record = medicalRecordsRepo.findAllByPatient_id(patientID)
+                .stream()
+                .filter(rec -> rec.getMedicalRecordStatus().equals("Open"))
+                .collect(Collectors.toList()).get(0);
+
+        record.setMedicalRecordStatus("Closed");
+
+        medicalRecordsRepo.save(record);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Prescription saved successfully");
+
+        return ResponseEntity.ok(response);
+    }
 }
