@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -241,7 +242,7 @@ public class MedicalRecordsService {
     public ResponseEntity<?> prescription(Integer patientID, PrescriptionDTO dto) {
         var record = medicalRecordsRepo.findAllByPatient_id(patientID)
                 .stream()
-                .filter(rec -> rec.getMedicalRecordStatus().equals("Open"))
+                .filter(rec -> rec.getDate().equals(LocalDate.now(ZoneId.of("Africa/Nairobi"))))
                 .collect(Collectors.toList()).get(0);
 
 
