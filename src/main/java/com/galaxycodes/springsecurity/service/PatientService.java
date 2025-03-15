@@ -277,4 +277,14 @@ public class PatientService {
 
         );
     }
+
+    public ResponseEntity<?> endProcess(String username) {
+        Patients p = patientRepo.findByUserName(username);
+        p.setInProgress(false);
+        p.setSendToDoctor(false);
+        patientRepo.save(p);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "process terminated");
+        return ResponseEntity.ok(response);
+    }
 }

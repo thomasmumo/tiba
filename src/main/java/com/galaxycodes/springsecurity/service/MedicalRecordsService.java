@@ -283,7 +283,7 @@ public class MedicalRecordsService {
                 .filter(rec -> rec.getMedicalRecordStatus().equals("Open"))
                 .collect(Collectors.toList()).get(0);
 
-        record.setMedicalRecordStatus("Closed");
+        record.setMedicalRecordStatus("Referred");
 
         medicalRecordsRepo.save(record);
 

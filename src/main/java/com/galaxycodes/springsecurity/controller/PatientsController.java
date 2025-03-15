@@ -56,6 +56,11 @@ public class PatientsController {
         return patientService.startProcess(username);
     }
 
+    @PutMapping("/patients/{username}/end-process")
+    public ResponseEntity<?> endProcess(@PathVariable("username") String username) {
+        return patientService.endProcess(username);
+    }
+
     @DeleteMapping("/patients/{user-name}/delete-patient")
     public ResponseEntity<?> deletePatient(@PathVariable("user-name") String username) {
         return patientService.deletePatient(username);
