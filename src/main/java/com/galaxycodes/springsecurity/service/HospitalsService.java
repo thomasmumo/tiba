@@ -52,7 +52,7 @@ public class HospitalsService {
     }
 
     private HospitalResponseDTO toHospitalResponseDTO(Hospitals hospital) {
-        return new HospitalResponseDTO(hospital.getId(),hospital.getHospitalName(), hospital.getLocation());
+        return new HospitalResponseDTO(hospital.getId(),hospital.getHospitalName(), hospital.getLocation(),hospital.getUsers());
     }
 
     public ResponseEntity<?> getHospital(Integer hospitalID) {

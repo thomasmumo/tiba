@@ -1,4 +1,9 @@
 package com.galaxycodes.springsecurity.DTOs;
 
-public record HospitalResponseDTO(Integer id,String name, String location) {
+import com.galaxycodes.springsecurity.model.Users;
+
+import java.util.List;
+
+public record HospitalResponseDTO(
+        Integer id, String name, String location, List<Users> users) {
 }
