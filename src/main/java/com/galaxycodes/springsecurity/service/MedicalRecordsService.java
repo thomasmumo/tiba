@@ -281,7 +281,7 @@ public class MedicalRecordsService {
     public ResponseEntity<?> close(Integer patientID) {
         var record = medicalRecordsRepo.findAllByPatient_id(patientID)
                 .stream()
-                .filter(rec -> rec.getMedicalRecordStatus().equals("Open"))
+                .filter(rec -> rec.getDate().equals(LocalDate.now(ZoneId.of("Africa/Nairobi"))))
                 .collect(Collectors.toList()).get(0);
 
         record.setMedicalRecordStatus("Referred");
