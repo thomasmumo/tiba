@@ -292,4 +292,6 @@ public class MedicalRecordsService {
 
         return ResponseEntity.ok(response);
     }
+
+
 }

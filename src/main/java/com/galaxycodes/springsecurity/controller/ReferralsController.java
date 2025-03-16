@@ -27,6 +27,10 @@ public class ReferralsController {
     public List<ReferralsResponseDTO> sendReferrals(@PathVariable("doctor-id") Integer doctorID){
         return referralsService.sendReferrals(doctorID);
     }
+    @PutMapping("/referrals/{referral-id}/update-referral")
+    public ResponseEntity<?> update(@PathVariable("referral-id") Integer referralID){
+        return referralsService.update(referralID);
+    }
     @GetMapping("/referrals/{patient-id}/get-patient-referrals")
     public List<ReferralsResponseDTO> patientReferrals(@PathVariable("patient-id") Integer patientID){
         return referralsService.patientReferrals(patientID);

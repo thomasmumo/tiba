@@ -72,6 +72,7 @@ public class ReferralsService {
         var referrals = referralsRepo.findAllByToStaffId(doctorID);
         return referrals.stream()
                 .map(referral -> new ReferralsResponseDTO(
+                        referral.getId(),
                         new HospitalDTO(referral.getHospital().getHospitalName(),referral.getHospital().getLocation()),
                         referral.getTo_hospital_id(),
                         new UsersResponseDTO(referral.getUserInReferrals().getId(),referral.getUserInReferrals().getFirstName(),referral.getUserInReferrals().getLastName()),
@@ -88,6 +89,7 @@ public class ReferralsService {
         var referrals = referralsRepo.findAllByUserInReferrals_id(doctorID);
         return referrals.stream()
                 .map(referral -> new ReferralsResponseDTO(
+                        referral.getId(),
                         new HospitalDTO(referral.getHospital().getHospitalName(),referral.getHospital().getLocation()),
                         referral.getTo_hospital_id(),
                         new UsersResponseDTO(referral.getUserInReferrals().getId(),referral.getUserInReferrals().getFirstName(),referral.getUserInReferrals().getLastName()),
@@ -104,6 +106,7 @@ public class ReferralsService {
         var referrals = referralsRepo.findAllByPatient_id(patientID);
         return referrals.stream()
                 .map(referral -> new ReferralsResponseDTO(
+                        referral.getId(),
                         new HospitalDTO(referral.getHospital().getHospitalName(),referral.getHospital().getLocation()),
                         referral.getTo_hospital_id(),
                         new UsersResponseDTO(referral.getUserInReferrals().getId(),referral.getUserInReferrals().getFirstName(),referral.getUserInReferrals().getLastName()),
@@ -114,5 +117,16 @@ public class ReferralsService {
                         referral.getReferralDate()
                 ))
                 .toList();
+    }
+
+    public ResponseEntity<?> update(Integer referralID) {
+        var ref = referralsRepo.findById(referralID).get();
+        ref.setReferralStatus("Seen");
+        referralsRepo.save(ref);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Successfully updated referral");
+
+        return ResponseEntity.ok(response);
     }
 }

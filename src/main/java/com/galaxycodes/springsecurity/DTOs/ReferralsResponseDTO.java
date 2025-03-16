@@ -5,6 +5,7 @@ import com.galaxycodes.springsecurity.model.Patients;
 import java.time.LocalDate;
 
 public record ReferralsResponseDTO(
+        Integer id,
         HospitalDTO fromHospital,
         Integer toHospitalID,
         UsersResponseDTO fromDoctor,

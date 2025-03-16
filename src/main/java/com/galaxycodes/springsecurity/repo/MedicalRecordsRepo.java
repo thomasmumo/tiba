@@ -13,4 +13,5 @@ public interface MedicalRecordsRepo extends JpaRepository<MedicalRecords, Intege
     List<MedicalRecords> findAllByPatient_id(Integer patient_id);
     List<MedicalRecords> findAllByHospital_id(Integer hospital_id);
 
+
 }
