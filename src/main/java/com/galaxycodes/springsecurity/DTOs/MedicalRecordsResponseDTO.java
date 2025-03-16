@@ -13,7 +13,7 @@ public record MedicalRecordsResponseDTO(
         String symptoms,
         UsersResponseDTO user,
         HospitalDTO hospital,
-        Patients patient,
+        PatientRecordDTO patient,
         String status,
         String prescription
 ) {

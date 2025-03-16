@@ -1,9 +1,6 @@
 package com.galaxycodes.springsecurity.service;
 
-import com.galaxycodes.springsecurity.DTOs.HospitalDTO;
-import com.galaxycodes.springsecurity.DTOs.MedicalRecordsResponseDTO;
-import com.galaxycodes.springsecurity.DTOs.PrescriptionDTO;
-import com.galaxycodes.springsecurity.DTOs.UsersResponseDTO;
+import com.galaxycodes.springsecurity.DTOs.*;
 import com.galaxycodes.springsecurity.model.*;
 import com.galaxycodes.springsecurity.repo.LabImagesRepo;
 import com.galaxycodes.springsecurity.repo.MedicalRecordsRepo;
@@ -232,7 +229,8 @@ public class MedicalRecordsService {
                         record.getSymptoms(),
                         new UsersResponseDTO(record.getUser().getId(),record.getUser().getFirstName(),record.getUser().getLastName()), // Directly mapping Users (Consider a DTO here)
                         new HospitalDTO(record.getHospital().getHospitalName(),record.getHospital().getLocation()),
-                        record.getPatient(),
+                        new PatientRecordDTO(record.getPatient().getId(),record.getPatient().getFirstName(),record.getPatient().getLastName(),record.getPatient().getUserName(),record.getPatient().getWeight(),record.getPatient().getBloodPressure(),
+                                record.getPatient().getAge(),record.getPatient().getTemperature()),
                         record.getMedicalRecordStatus(),
                         record.getPrescription()
                 ))
@@ -270,7 +268,8 @@ public class MedicalRecordsService {
                         record.getSymptoms(),
                         new UsersResponseDTO(record.getUser().getId(),record.getUser().getFirstName(),record.getUser().getLastName()), // Directly mapping Users (Consider a DTO here)
                         new HospitalDTO(record.getHospital().getHospitalName(),record.getHospital().getLocation()),
-                        record.getPatient(),
+                        new PatientRecordDTO(record.getPatient().getId(),record.getPatient().getFirstName(),record.getPatient().getLastName(),record.getPatient().getUserName(),record.getPatient().getWeight(),record.getPatient().getBloodPressure(),
+                                record.getPatient().getAge(),record.getPatient().getTemperature()),
                         record.getMedicalRecordStatus(),
                         record.getPrescription()
                 ))
