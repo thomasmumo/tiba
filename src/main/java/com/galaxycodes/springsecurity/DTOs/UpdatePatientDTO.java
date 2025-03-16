@@ -18,7 +18,8 @@ public record UpdatePatientDTO(
     String sex,
     Integer temperature,
     Integer doctorID,
-    Integer hospitalID
+    Integer hospitalID,
+    Integer patientID
 
 ) {
 }
