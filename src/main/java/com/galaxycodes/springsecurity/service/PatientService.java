@@ -123,6 +123,7 @@ public class PatientService {
                 Map<String, String> response = new HashMap<>();
                 response.put("patient", patient.getUserName());
                 response.put("Token", jwtService.generateToken(patient.getUserName()));
+                response.put("from","patients");
 
                 return ResponseEntity.ok(response);
 //                return ResponseEntity.ok("Patient "+patient.getUserName()+"Token: "+jwtService.generateToken(patient.getUserName()));
