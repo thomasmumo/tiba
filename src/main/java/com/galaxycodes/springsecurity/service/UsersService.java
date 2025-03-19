@@ -287,10 +287,12 @@ public class UsersService {
 
     public ResponseEntity<?> updateUserDetails(String username,UpdateUserDTO dto) {
         var user = usersRepo.findByUserName(username);
-        user.setFirstName(dto.firstName());
-        user.setLastName(dto.lastName());
-        user.setEmail(dto.email());
-        user.setPhoneNumber(dto.phoneNumber());
+
+        Optional.ofNullable(dto.firstName()).ifPresent(user::setFirstName);
+        Optional.ofNullable(dto.lastName()).ifPresent(user::setLastName);
+        Optional.ofNullable(dto.email()).ifPresent(user::setEmail);
+        Optional.ofNullable(dto.phoneNumber()).ifPresent(user::setPhoneNumber);
+        Optional.of(dto.acceptReferrals()).ifPresent(user::setAcceptreferrals);
 
 
         usersRepo.save(user);

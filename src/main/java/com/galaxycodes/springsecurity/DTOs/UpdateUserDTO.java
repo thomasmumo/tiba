@@ -13,7 +13,7 @@ public record UpdateUserDTO(
 
         String userName,
         String role,
-
+        boolean acceptReferrals,
 
         Integer phoneNumber,
 

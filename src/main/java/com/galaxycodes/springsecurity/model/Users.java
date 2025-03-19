@@ -21,6 +21,7 @@ public class Users {
     private String userName;
     private String password;
     private boolean isActive=true;
+    private boolean acceptreferrals=true;
     private String role;
     private Integer phoneNumber;
     private String profileURL;
@@ -60,9 +61,10 @@ public class Users {
 
 
 
-    public Users(List<LabImages> images,boolean dayShift, boolean nightShift, boolean loggedIn, String email, Integer phoneNumber, String firstName, String lastName, String profileURL, String userName, String password, boolean isActive, String role, List<MedicalRecords> medicalRecords, List<Referrals> referrals, List<StaffManagement> attendance, List<Appointments> appointments, Hospitals hospitalInUsers) {
+    public Users(List<LabImages> images,boolean acceptreferrals, boolean dayShift, boolean nightShift, boolean loggedIn, String email, Integer phoneNumber, String firstName, String lastName, String profileURL, String userName, String password, boolean isActive, String role, List<MedicalRecords> medicalRecords, List<Referrals> referrals, List<StaffManagement> attendance, List<Appointments> appointments, Hospitals hospitalInUsers) {
         this.userName = userName;
         this.password = password;
+        this.acceptreferrals = acceptreferrals;
         this.dayShift = dayShift;
         this.nightShift = nightShift;
         this.loggedIn = loggedIn;
@@ -79,6 +81,14 @@ public class Users {
         this.appointments = appointments;
         this.hospitalInUsers = hospitalInUsers;
         this.profileURL = profileURL;
+    }
+
+    public boolean isAcceptreferrals() {
+        return acceptreferrals;
+    }
+
+    public void setAcceptreferrals(boolean acceptreferrals) {
+        this.acceptreferrals = acceptreferrals;
     }
 
     public boolean isLoggedIn() {
