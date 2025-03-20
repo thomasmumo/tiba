@@ -2,6 +2,7 @@ package com.galaxycodes.springsecurity.controller;
 
 import com.galaxycodes.springsecurity.DTOs.ReferralsDTO;
 import com.galaxycodes.springsecurity.DTOs.ReferralsResponseDTO;
+import com.galaxycodes.springsecurity.DTOs.UpdatedResponseDTO;
 import com.galaxycodes.springsecurity.service.ReferralsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class ReferralsController {
         return referralsService.update(referralID);
     }
     @GetMapping("/referrals/{patient-id}/get-patient-referrals")
-    public List<ReferralsResponseDTO> patientReferrals(@PathVariable("patient-id") Integer patientID){
+    public List<UpdatedResponseDTO> patientReferrals(@PathVariable("patient-id") Integer patientID){
         return referralsService.patientReferrals(patientID);
     }
 }

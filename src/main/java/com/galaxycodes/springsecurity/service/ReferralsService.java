@@ -7,6 +7,7 @@ import com.galaxycodes.springsecurity.model.Referrals;
 import com.galaxycodes.springsecurity.model.Users;
 import com.galaxycodes.springsecurity.repo.HospitalsRepo;
 import com.galaxycodes.springsecurity.repo.ReferralsRepo;
+import com.galaxycodes.springsecurity.repo.UserRepo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,10 @@ import java.util.stream.Collectors;
 public class ReferralsService {
     @Autowired
     private ReferralsRepo referralsRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+
     @Autowired
     private HospitalsRepo hospitalsRepo;
     public ResponseEntity<?> createReferral(Integer doctorID, @Valid ReferralsDTO dto) {
@@ -102,17 +107,17 @@ public class ReferralsService {
                 .toList();
     }
 
-    public List<ReferralsResponseDTO> patientReferrals(Integer patientID) {
+    public List<UpdatedResponseDTO> patientReferrals(Integer patientID) {
         var referrals = referralsRepo.findAllByPatient_id(patientID);
         return referrals.stream()
-                .map(referral -> new ReferralsResponseDTO(
+                .map(referral -> new UpdatedResponseDTO(
                         referral.getId(),
-                        new HospitalDTO(referral.getHospital().getHospitalName(),referral.getHospital().getLocation()),
-                        referral.getTo_hospital_id(),
-                        new UsersResponseDTO(referral.getUserInReferrals().getId(),referral.getUserInReferrals().getFirstName(),referral.getUserInReferrals().getLastName()),
-                        referral.getToStaffId(),
+                        new HospitalResponseDTO(referral.getHospital().getId(),referral.getHospital().getHospitalName(),referral.getHospital().getLocation(),referral.getHospital().getUsers()),
+                        new HospitalResponseDTO(hospitalsRepo.findById(referral.getTo_hospital_id()).get().getId(),hospitalsRepo.findById(referral.getTo_hospital_id()).get().getHospitalName(),hospitalsRepo.findById(referral.getTo_hospital_id()).get().getLocation(),hospitalsRepo.findById(referral.getTo_hospital_id()).get().getUsers()),
+                        new DoctorResponseDTO(referral.getUserInReferrals().getId(),referral.getUserInReferrals().getFirstName(),referral.getUserInReferrals().getLastName(),referral.getUserInReferrals().getUserName()),
+                        new DoctorResponseDTO(userRepo.findById(referral.getToStaffId()).get().getId(),userRepo.findById(referral.getToStaffId()).get().getFirstName(),userRepo.findById(referral.getToStaffId()).get().getLastName(),userRepo.findById(referral.getToStaffId()).get().getUserName()),
                         referral.getReferralReason(),
-                        referral.getPatient(),
+                        new MiniPatientResponseDTO(referral.getPatient().getId(),referral.getPatient().getFirstName(),referral.getPatient().getLastName(),referral.getPatient().getUserName()),
                         referral.getReferralStatus(),
                         referral.getReferralDate()
                 ))
