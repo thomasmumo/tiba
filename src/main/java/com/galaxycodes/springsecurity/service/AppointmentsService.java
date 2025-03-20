@@ -86,7 +86,7 @@ public class AppointmentsService {
     }
 
     public ResponseEntity<?> getAppointmentByPatient(Integer patientId) {
-        var appointment = appointmentsRepo.findAllByUserInAppointment_id(patientId);
+        var appointment = appointmentsRepo.findAllByPatient_id(patientId);
         if (appointment.isEmpty()) {
             return new ResponseEntity<>("No appointments found", HttpStatus.NOT_FOUND);
         }
