@@ -33,9 +33,13 @@ public class AppointmentsController {
         return appointmentsService.bookAppointment(patientId, dto);
     }
 
-    @PutMapping("/appointments/{patient-id}/accept-appointment")
+    @PutMapping("/appointments/{patient-id}/complete-appointment")
     public ResponseEntity<?> acceptAppointment(@PathVariable("patient-id") Integer patientId) {
         return appointmentsService.acceptAppointment(patientId);
+    }
+    @PutMapping("/appointments/{patient-id}/cancel-appointment")
+    public ResponseEntity<?> cancelAppointment(@PathVariable("patient-id") Integer patientId) {
+        return appointmentsService.cancelAppointment(patientId);
     }
     @DeleteMapping("/appointments/delete-all")
     public ResponseEntity<?> deleteAllAppointments() {

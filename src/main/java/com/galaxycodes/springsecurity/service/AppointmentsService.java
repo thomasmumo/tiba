@@ -162,7 +162,7 @@ public class AppointmentsService {
                 .filter(app -> app.getAppointmentStatus().equals("Booked"))  // Lambda to filter adults
                 .collect(Collectors.toList());
         var appointment = appointments.get(0);
-        appointment.setAppointmentStatus("Active");
+        appointment.setAppointmentStatus("Complete");
         appointmentsRepo.save(appointment);
 
         Map<String, String> response = new HashMap<>();
@@ -170,5 +170,19 @@ public class AppointmentsService {
 
         return ResponseEntity.ok(response);
 
+    }
+
+    public ResponseEntity<?> cancelAppointment(Integer patientId) {
+        var appointments = appointmentsRepo.findAllByUserInAppointment_id(patientId).stream()
+                .filter(app -> app.getAppointmentStatus().equals("Booked"))  // Lambda to filter adults
+                .collect(Collectors.toList());
+        var appointment = appointments.get(0);
+        appointment.setAppointmentStatus("Canceled");
+        appointmentsRepo.save(appointment);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Appointment accepted");
+
+        return ResponseEntity.ok(response);
     }
 }
