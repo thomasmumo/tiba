@@ -1,11 +1,15 @@
 package com.galaxycodes.springsecurity.controller;
 
 import com.galaxycodes.springsecurity.DTOs.AppointmentsDTO;
+import com.galaxycodes.springsecurity.DTOs.AppointmentsResponseDTO;
 import com.galaxycodes.springsecurity.model.Appointments;
 import com.galaxycodes.springsecurity.service.AppointmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 public class AppointmentsController {
@@ -20,11 +24,11 @@ public class AppointmentsController {
     }
 
     @GetMapping("/appointments/{doctor-id}/doctor-get-appointment")
-    public ResponseEntity<?> getAppointmentByDoctor(@PathVariable("doctor-id") Integer doctorId) {
+    public List<AppointmentsResponseDTO> getAppointmentByDoctor(@PathVariable("doctor-id") Integer doctorId) {
         return appointmentsService.getAppointmentByDoctor(doctorId);
     }
     @GetMapping("/appointments/{patient-id}/patient-get-appointment")
-    public ResponseEntity<?> getAppointmentByPatient(@PathVariable("patient-id") Integer patientId) {
+    public List<AppointmentsResponseDTO> getAppointmentByPatient(@PathVariable("patient-id") Integer patientId) {
         return appointmentsService.getAppointmentByPatient(patientId);
     }
 

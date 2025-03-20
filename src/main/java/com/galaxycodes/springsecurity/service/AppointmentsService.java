@@ -1,6 +1,6 @@
 package com.galaxycodes.springsecurity.service;
 
-import com.galaxycodes.springsecurity.DTOs.AppointmentsDTO;
+import com.galaxycodes.springsecurity.DTOs.*;
 import com.galaxycodes.springsecurity.model.Appointments;
 import com.galaxycodes.springsecurity.model.Hospitals;
 import com.galaxycodes.springsecurity.model.Patients;
@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -77,20 +78,39 @@ public class AppointmentsService {
         return appointment;
     }
 
-    public ResponseEntity<?> getAppointmentByDoctor(Integer doctorId) {
-        var appointment = appointmentsRepo.findAllByUserInAppointment_id(doctorId);
-        if (appointment.isEmpty()) {
-            return new ResponseEntity<>("No appointments found", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(appointment, HttpStatus.OK);
+    public List<AppointmentsResponseDTO> getAppointmentByDoctor(Integer doctorId) {
+        var appointments = appointmentsRepo.findAllByUserInAppointment_id(doctorId);
+        return appointments.stream()
+                .map(appointment -> new AppointmentsResponseDTO(
+                        appointment.getAppointmentDate(),
+                        appointment.getAppointmentReason(),
+                        appointment.getAppointmentStatus(),
+                        appointment.getAppointmentTime(),
+                        new HospitalResponseDTO(appointment.getHospital().getId(),appointment.getHospital().getHospitalName(),appointment.getHospital().getLocation(),appointment.getHospital().getUsers()),
+                        new MiniPatientResponseDTO(appointment.getPatient().getId(),appointment.getPatient().getFirstName(),appointment.getPatient().getLastName(),appointment.getPatient().getUserName()),
+                        new DoctorResponseDTO(appointment.getUserInAppointment().getId(),appointment.getUserInAppointment().getFirstName(),appointment.getUserInAppointment().getLastName(),appointment.getUserInAppointment().getUserName())
+
+
+                ))
+                .toList();
     }
 
-    public ResponseEntity<?> getAppointmentByPatient(Integer patientId) {
-        var appointment = appointmentsRepo.findAllByPatient_id(patientId);
-        if (appointment.isEmpty()) {
-            return new ResponseEntity<>("No appointments found", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(appointment, HttpStatus.OK);
+    public List<AppointmentsResponseDTO> getAppointmentByPatient(Integer patientId) {
+        var appointments = appointmentsRepo.findAllByPatient_id(patientId);
+        return appointments.stream()
+                .map(appointment -> new AppointmentsResponseDTO(
+                        appointment.getAppointmentDate(),
+                        appointment.getAppointmentReason(),
+                        appointment.getAppointmentStatus(),
+                        appointment.getAppointmentTime(),
+                        new HospitalResponseDTO(appointment.getHospital().getId(),appointment.getHospital().getHospitalName(),appointment.getHospital().getLocation(),appointment.getHospital().getUsers()),
+                        new MiniPatientResponseDTO(appointment.getPatient().getId(),appointment.getPatient().getFirstName(),appointment.getPatient().getLastName(),appointment.getPatient().getUserName()),
+                        new DoctorResponseDTO(appointment.getUserInAppointment().getId(),appointment.getUserInAppointment().getFirstName(),appointment.getUserInAppointment().getLastName(),appointment.getUserInAppointment().getUserName())
+
+
+                ))
+                .toList();
+
     }
 
     public ResponseEntity<?> bookAppointment(Integer patientId, AppointmentsDTO dto) {
