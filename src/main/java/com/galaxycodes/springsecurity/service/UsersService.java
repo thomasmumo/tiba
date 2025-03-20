@@ -156,7 +156,10 @@ public class UsersService {
                         user.getHospitalInUsers().getLocation(),
                         user.getUserName(),
                         user.getProfileURL(),
-                        user.getRole());
+                        user.getRole(),
+                        user.isAcceptreferrals()
+                        );
+
             }
         return new AdminResponseDTO(
                 user.getFirstName(),
@@ -168,7 +171,9 @@ public class UsersService {
                 "",
                 user.getUserName(),
                 user.getProfileURL(),
-                user.getRole());
+                user.getRole(),
+                user.isAcceptreferrals()
+                );
 
 
 

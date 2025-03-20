@@ -10,7 +10,8 @@ public record AdminResponseDTO(
         String hospitalLocation,
         String username,
         String profileURL,
-        String role
+        String role,
+        boolean acceptReferrals
 ) {
 
 }
