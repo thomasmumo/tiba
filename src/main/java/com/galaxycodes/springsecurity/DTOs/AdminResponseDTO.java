@@ -6,6 +6,8 @@ public record AdminResponseDTO(
         Integer phone,
         Boolean activeAcc,
         Boolean loggedIn,
+        Integer userId,
+        Integer hospitalID,
         String hospitalName,
         String hospitalLocation,
         String username,
