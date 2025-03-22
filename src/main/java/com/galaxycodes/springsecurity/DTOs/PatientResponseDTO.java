@@ -20,6 +20,7 @@ public record PatientResponseDTO(
         String bloodPressure,
         String bloodType,
         String age,
+
         String address,
         Boolean InProgress,
         String phone,
@@ -28,6 +29,7 @@ public record PatientResponseDTO(
         List<Appointments> appointments,
         List<MedicalRecords> medicalRecords,
         List<Referrals> referrals,
-        List<Hospitals> hospitals
+        List<Hospitals> hospitals,
+        String profileURL
 ) {
 }

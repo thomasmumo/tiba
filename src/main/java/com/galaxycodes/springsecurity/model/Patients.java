@@ -30,8 +30,7 @@ public class Patients {
     private String bloodPressure;
     private  String bloodType;
     private String age;
-    @Lob
-    private byte[] profileImageData;
+    private String profileURL;
     private String address;
     private Boolean inProgress = false;
     private String firstName;
@@ -69,7 +68,7 @@ public class Patients {
 
 
 
-    public Patients(List<LabImages> images, boolean sendToDoctor,double temperature, String phone, Boolean inProgress, List<Referrals> referrals, byte[] profileImageData, String userName, String password, String email, String sex, String allergies, double weight, double height, String bloodPressure, String bloodType, String age, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
+    public Patients(List<LabImages> images, boolean sendToDoctor,double temperature,String profileURL, String phone, Boolean inProgress, List<Referrals> referrals, String userName, String password, String email, String sex, String allergies, double weight, double height, String bloodPressure, String bloodType, String age, String address, String firstName, String lastName, List<Appointments> appointments, List<MedicalRecords> medicalRecords, List<Hospitals> hospitals) {
         this.userName = userName;
         this.password = password;
         this.sendToDoctor = sendToDoctor;
@@ -78,7 +77,7 @@ public class Patients {
         this.referrals = referrals;
         this.images = images;
         this.phone = phone;
-        this.profileImageData = profileImageData;
+        this.profileURL = profileURL;
         this.email = email;
         this.sex = sex;
         this.allergies = allergies;
@@ -279,11 +278,11 @@ public class Patients {
         this.hospitals = hospitals;
     }
 
-    public byte[] getProfileImageData() {
-        return profileImageData;
+    public String getProfileURL() {
+        return profileURL;
     }
 
-    public void setProfileImageData(byte[] profileImageData) {
-        this.profileImageData = profileImageData;
+    public void setProfileURL(String profileURL) {
+        this.profileURL = profileURL;
     }
 }

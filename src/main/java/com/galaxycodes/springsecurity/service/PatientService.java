@@ -44,6 +44,9 @@ public class PatientService {
     @Autowired
     private MedicalRecordsService medicalRecordsService;
 
+    @Autowired
+    private CloudinaryService cloudinaryService;
+
 
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
@@ -91,25 +94,32 @@ public class PatientService {
 
     }
     @Transactional
-    public byte[] downloadProfile(String username) throws IOException {
-        Patients user= patientRepo.findByUserName(username);
+    public ResponseEntity<?> downloadProfile(String username) throws IOException {
+        Patients patient= patientRepo.findByUserName(username);
 
-        byte[] image = ImagesUtil.decompressImage(user.getProfileImageData());
-        return image;
+
+        String profileImageURL = patient.getProfileURL();
+        Map<String, String> response = new HashMap<>();
+        response.put("profileImageURL", profileImageURL);
+
+        return ResponseEntity.ok(response);
     }
     @Transactional
     public ResponseEntity<?> updateProfile(String username, MultipartFile file) throws IOException {
 
-        Patients user = patientRepo.findByUserName(username);
+        try {
+            Patients patient = patientRepo.findByUserName(username);
+            patient.setProfileURL(cloudinaryService.uploadImage(file));
+            patientRepo.save(patient);
 
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "profile picture updated");
 
-        user.setProfileImageData(ImagesUtil.compressImage(file.getBytes()));
+            return ResponseEntity.ok(response);
 
-        patientRepo.save(user);
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "profile picture updated");
-
-        return ResponseEntity.ok(response);
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Image upload failed: " + e.getMessage());
+        }
 
 
     }
@@ -208,7 +218,8 @@ public class PatientService {
                 patient.getAppointments(),
                 patient.getMedicalRecords(),
                 patient.getReferrals(),
-                patient.getHospitals()  // ✅ Now explicitly including hospitals
+                patient.getHospitals(),
+                patient.getProfileURL()// ✅ Now explicitly including hospitals
 
 
         );
@@ -273,7 +284,8 @@ public class PatientService {
                 patient.getAppointments(),
                 patient.getMedicalRecords(),
                 patient.getReferrals(),
-                patient.getHospitals()  // ✅ Now explicitly including hospitals
+                patient.getHospitals(),
+                patient.getProfileURL()// ✅ Now explicitly including hospitals
 
 
         );
@@ -287,5 +299,19 @@ public class PatientService {
         Map<String, String> response = new HashMap<>();
         response.put("message", "process terminated");
         return ResponseEntity.ok(response);
+    }
+    public ResponseEntity<?> changePatientPassword(String username, ChangePasswordDTO dto) {
+        var patient = patientRepo.findByUserName(username);
+        if (!encoder.matches(dto.currentPassword(), patient.getPassword())){
+            return new ResponseEntity<>("Password does not match", HttpStatus.UNAUTHORIZED);
+        }
+        patient.setPassword(encoder.encode(dto.newPassword()));
+        patientRepo.save(patient);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "password updated successfully");
+
+        return ResponseEntity.ok(response);
+
     }
 }

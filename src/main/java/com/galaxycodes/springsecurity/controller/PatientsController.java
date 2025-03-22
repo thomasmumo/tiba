@@ -1,5 +1,6 @@
 package com.galaxycodes.springsecurity.controller;
 
+import com.galaxycodes.springsecurity.DTOs.ChangePasswordDTO;
 import com.galaxycodes.springsecurity.DTOs.PatientResponseDTO;
 import com.galaxycodes.springsecurity.DTOs.PatientsDTO;
 import com.galaxycodes.springsecurity.DTOs.UpdatePatientDTO;
@@ -55,6 +56,10 @@ public class PatientsController {
     public ResponseEntity<?> startProcess(@PathVariable("userName") String username) {
         return patientService.startProcess(username);
     }
+    @PutMapping("/patients/{userName}/change-password")
+    public ResponseEntity<?> changePassword(@PathVariable("userName") String username,@RequestBody ChangePasswordDTO dto) {
+        return patientService.changePatientPassword(username,dto);
+    }
 
     @PutMapping("/patients/{username}/end-process")
     public ResponseEntity<?> endProcess(@PathVariable("username") String username) {
@@ -71,13 +76,14 @@ public class PatientsController {
         return patientService.updateProfile(username,file);
     }
 
+
     @GetMapping("/patients/{userName}/get-profile-pic")
     public ResponseEntity<?> downloadProfile(@PathVariable(value = "userName") String userName) throws IOException {
-        byte[] imageData = patientService.downloadProfile(userName);
-        return ResponseEntity.ok()
-                .contentType(MediaType.valueOf("image/png"))
-                .body(imageData);
+        return this.patientService.downloadProfile(userName);
     }
+
+
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException exp) {
         var errors =  new HashMap<String, String>();
