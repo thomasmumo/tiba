@@ -178,7 +178,7 @@ public class AppointmentsService {
     }
 
     public ResponseEntity<?> acceptAppointment(Integer patientId) {
-        var appointments = appointmentsRepo.findAllByUserInAppointment_id(patientId).stream()
+        var appointments = appointmentsRepo.findAllByPatient_id(patientId).stream()
                 .filter(app -> app.getAppointmentStatus().equals("Booked"))  // Lambda to filter adults
                 .collect(Collectors.toList());
         var appointment = appointments.get(0);
