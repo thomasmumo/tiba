@@ -9,7 +9,7 @@ public record StaffManagementResponseDTO(
         LocalTime loggedInTime,
         LocalTime loggedOutTime,
         String shift,
-        UpdateUserDTO doctor,
+        UsersManagementResponseDTO doctor,
         Float workHours
 ) {
 }

@@ -24,7 +24,7 @@ public class StaffManagementService {
                         rec.getLoggedInTime(),
                         rec.getLoggedOutTime(),
                         rec.getShift(),
-                        new UpdateUserDTO(rec.getUserInStaffManagement().getFirstName(),rec.getUserInStaffManagement().getLastName(),rec.getUserInStaffManagement().getUserName(),rec.getUserInStaffManagement().getRole(),rec.getUserInStaffManagement().isAcceptreferrals(),rec.getUserInStaffManagement().getPhoneNumber(),rec.getUserInStaffManagement().getEmail()),
+                        new UsersManagementResponseDTO(rec.getUserInStaffManagement().getFirstName(),rec.getUserInStaffManagement().getLastName(),rec.getUserInStaffManagement().getUserName(),rec.getUserInStaffManagement().getRole(),rec.getUserInStaffManagement().isAcceptreferrals(),rec.getUserInStaffManagement().getPhoneNumber(),rec.getUserInStaffManagement().getEmail(),rec.getUserInStaffManagement().isLoggedIn(),rec.getUserInStaffManagement().getProfileURL()),
                         rec.getWorkHours()
 
                 ))
