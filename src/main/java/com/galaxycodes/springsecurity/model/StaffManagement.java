@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
@@ -16,7 +17,7 @@ public class StaffManagement {
     @Id
     @GeneratedValue
     private Integer id;
-    private LocalDate date=LocalDate.now();
+    private LocalDate date=LocalDate.now(ZoneId.of("Africa/Nairobi"));
     private LocalTime loggedInTime;
     private LocalTime loggedOutTime;
     private Float workHours;
