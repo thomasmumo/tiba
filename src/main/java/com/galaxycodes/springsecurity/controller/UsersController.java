@@ -76,7 +76,7 @@ public class UsersController {
         return usersService.login(user);
 
     }
-    @PostMapping("/users/{staff-id}/logout")
+    @PutMapping("/users/{staff-id}/logout")
     public ResponseEntity<?> login(@PathVariable("staff-id" )Integer staffId) {
         return usersService.logout(staffId);
 
