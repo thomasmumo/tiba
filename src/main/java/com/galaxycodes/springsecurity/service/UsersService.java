@@ -343,24 +343,26 @@ public class UsersService {
             var staff = usersRepo.findById(staffId);
             staff.get().setLoggedIn(false);
             usersRepo.save(staff.get());
-
-            var staffRecord = staffManagementRepo.findAllByDate(LocalDate.now())
-                    .stream()
-                    .filter(record -> record.getLoggedOutTime()==null && record.getUserInStaffManagement().getId().equals(staffId))
-                    .collect(Collectors.toList()).get(0);
-            staffRecord.setLoggedOutTime(LocalTime.now());
-            var minsNow = LocalTime.now().getMinute();
-            if (staffRecord.getLoggedInTime().getMinute() > minsNow) {
+            if(!Objects.equals(staff.get().getRole(), "ADMIN") || !Objects.equals(staff.get().getRole(), "SUPER ADMIN")){
+                var staffRecord = staffManagementRepo.findAllByDate(LocalDate.now())
+                        .stream()
+                        .filter(record -> record.getLoggedOutTime()==null && record.getUserInStaffManagement().getId().equals(staffId))
+                        .collect(Collectors.toList()).get(0);
+                staffRecord.setLoggedOutTime(LocalTime.now());
+                var minsNow = LocalTime.now().getMinute();
+                if (staffRecord.getLoggedInTime().getMinute() > minsNow) {
+                    staffRecord.setWorkHours(
+                            ((((float)LocalTime.now().getHour() - (float)staffRecord.getLoggedInTime().getHour())*60) +
+                                    ((float)staffRecord.getLoggedInTime().getMinute() - (float)minsNow))/60
+                    );
+                }
                 staffRecord.setWorkHours(
                         ((((float)LocalTime.now().getHour() - (float)staffRecord.getLoggedInTime().getHour())*60) +
-                                ((float)staffRecord.getLoggedInTime().getMinute() - (float)minsNow))/60
+                                ( (float)minsNow - (float)staffRecord.getLoggedInTime().getMinute()))/60
                 );
+                staffManagementRepo.save(staffRecord);
             }
-            staffRecord.setWorkHours(
-                    ((((float)LocalTime.now().getHour() - (float)staffRecord.getLoggedInTime().getHour())*60) +
-                            ( (float)minsNow - (float)staffRecord.getLoggedInTime().getMinute()))/60
-            );
-            staffManagementRepo.save(staffRecord);
+
 
             Map<String, String> response = new HashMap<>();
             response.put("message", "logged out successfully");
